@@ -1,0 +1,29 @@
+group 'foodambulance'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-context:5.0.3.RELEASE'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.9'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version: '5.0.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version: '5.0.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version: '5.0.4.RELEASE'
+    compile group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.14.Final'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.1'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '5.0.4.RELEASE'
+}
