@@ -20,9 +20,9 @@
 				destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url"
-						value="jdbc:postgresql://horton.elephantsql.com:5432/afezmgrg" />
-		<property name="username" value="afezmgrg" />
-		<property name="password" value="aGHcIJbzrJADT8DPOaYo9hTVBnHCe9zG" />
+						value="jdbc:postgresql://horton.elephantsql.com:5432/mwpwvxvu" />
+		<property name="username" value="mwpwvxvu" />
+		<property name="password" value="J4PP_kgFvx7q2rdDugJs3MJ3lSXpVY96" />
 	</bean>
 
 	<bean id="hibernate4AnnotatedSessionFactory"
@@ -30,7 +30,9 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<!--<value>corepeat.model.CorepeatUser</value>-->
+				<value>model.Product</value>
+				<value>model.Customer</value>
+				<value>model.CustomerProduct</value>
             </list>
 		</property>
 		<property name="hibernateProperties">

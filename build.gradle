@@ -21,6 +21,7 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-tx', version: '5.0.4.RELEASE'
     compile group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.14.Final'
+    compile group: 'org.hibernate', name: 'hibernate-java8', version: '5.2.15.Final'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.1'
     compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
 
