@@ -46,6 +46,18 @@
 		</property>
 	</bean>
 
+	<bean id="customerDAO" class="dao.CustomerDAOImpl">
+		<constructor-arg ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
+	<bean id="productDAO" class="dao.ProductDAOImpl">
+		<constructor-arg ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
+    <bean id="recipeDAO" class="dao.RecipeDAOImpl">
+        <constructor-arg ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
