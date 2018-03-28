@@ -1,6 +1,6 @@
-package service;
+package foodambulance.service;
 
-import model.CustomerProduct;
+import foodambulance.model.CustomerProduct;
 
 import java.util.Set;
 

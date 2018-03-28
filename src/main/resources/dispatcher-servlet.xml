@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- Add support for component scanning -->
-	<context:component-scan base-package="java"/>
+	<context:component-scan base-package="foodambulance"/>
 
 	<!-- Add support for conversion, formatting and validation support -->
     <mvc:annotation-driven/>
@@ -30,11 +30,11 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>model.Product</value>
-				<value>model.Customer</value>
-				<value>model.CustomerProduct</value>
-				<value>model.Recipe</value>
-				<value>model.RecipeIngredient</value>
+				<value>foodambulance.model.Product</value>
+				<value>foodambulance.model.Customer</value>
+				<value>foodambulance.model.CustomerProduct</value>
+				<value>foodambulance.model.Recipe</value>
+				<value>foodambulance.model.RecipeIngredient</value>
             </list>
 		</property>
 		<property name="hibernateProperties">
@@ -46,17 +46,25 @@
 		</property>
 	</bean>
 
-	<bean id="customerDAO" class="dao.CustomerDAOImpl">
+	<bean id="customerDAO" class="foodambulance.dao.CustomerDAOImpl">
 		<constructor-arg ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 
-	<bean id="productDAO" class="dao.ProductDAOImpl">
+	<bean id="productDAO" class="foodambulance.dao.ProductDAOImpl">
 		<constructor-arg ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 
-    <bean id="recipeDAO" class="dao.RecipeDAOImpl">
+    <bean id="recipeDAO" class="foodambulance.dao.RecipeDAOImpl">
         <constructor-arg ref="hibernate4AnnotatedSessionFactory" />
     </bean>
+
+	<bean id="customerService" class="foodambulance.service.CustomerServiceImpl">
+		<constructor-arg ref="customerDAO"/>
+	</bean>
+
+	<bean id="customerController" class="foodambulance.controller.CustomerController">
+		<constructor-arg ref="customerService"/>
+	</bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 

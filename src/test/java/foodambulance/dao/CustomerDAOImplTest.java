@@ -1,8 +1,8 @@
-package dao;
+package foodambulance.dao;
 
 
-import model.Customer;
-import model.CustomerProduct;
+import foodambulance.model.Customer;
+import foodambulance.model.CustomerProduct;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

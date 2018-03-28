@@ -1,6 +1,6 @@
-package dao;
+package foodambulance.dao;
 
-import model.Customer;
+import foodambulance.model.Customer;
 
 public interface CustomerDAO {
 

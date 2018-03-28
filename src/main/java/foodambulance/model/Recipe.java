@@ -1,5 +1,8 @@
-package model;
+package foodambulance.model;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,12 +22,14 @@ public class Recipe {
     private String name;
 
     @ManyToOne
+    @JsonManagedReference
     private Customer customer;
 
     @Column(name = "PUBLIC")
     private boolean isPublic;
 
     @OneToMany(mappedBy = "recipe")
+    @JsonBackReference
     private Set<RecipeIngredient> ingredients = new HashSet<>();
 
     public Integer getId() {

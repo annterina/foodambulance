@@ -1,6 +1,6 @@
-package dao;
+package foodambulance.dao;
 
-import model.Recipe;
+import foodambulance.model.Recipe;
 
 public interface RecipeDAO {
 

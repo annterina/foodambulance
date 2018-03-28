@@ -1,4 +1,6 @@
-package model;
+package foodambulance.model;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,10 +17,12 @@ public class CustomerProduct {
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
+    @JsonManagedReference
     private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
+    @JsonManagedReference
     private Product product;
 
     @Column
