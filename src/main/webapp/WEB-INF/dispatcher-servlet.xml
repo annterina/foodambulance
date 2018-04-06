@@ -33,6 +33,8 @@
 				<value>model.Product</value>
 				<value>model.Customer</value>
 				<value>model.CustomerProduct</value>
+				<value>model.Recipe</value>
+				<value>model.RecipeIngredient</value>
             </list>
 		</property>
 		<property name="hibernateProperties">

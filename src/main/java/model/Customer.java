@@ -23,6 +23,9 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private Set<CustomerProduct> customerProducts = new HashSet<>();
 
+    @OneToMany(mappedBy = "customer")
+    private Set<Recipe> recipes = new HashSet<>();
+
     public Integer getId() {
         return id;
     }
@@ -55,4 +58,11 @@ public class Customer {
         this.customerProducts = customerProducts;
     }
 
+    public Set<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(Set<Recipe> recipes) {
+        this.recipes = recipes;
+    }
 }
