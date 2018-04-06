@@ -1,4 +1,6 @@
-package model;
+package foodambulance.model;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -14,10 +16,12 @@ public class RecipeIngredient {
 
     @ManyToOne
     @JoinColumn(name = "RECIPE_ID")
+    @JsonManagedReference
     private Recipe recipe;
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
+    @JsonManagedReference
     private Product product;
 
     public int getId() {
