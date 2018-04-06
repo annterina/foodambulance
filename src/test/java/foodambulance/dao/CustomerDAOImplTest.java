@@ -32,7 +32,7 @@ public class CustomerDAOImplTest {
         product.setId(1);
         product.setCustomer(customer);
         product.setAmount(2f);
-        product.setOldestDate(LocalDateTime.now());
+        product.setNewestBuyDate(LocalDateTime.now());
         customer.setCustomerProducts(customerProducts);
         customerDAO.save(customer);
         Customer databaseCustomer = customerDAO.getCustomerOfId(customer.getId());

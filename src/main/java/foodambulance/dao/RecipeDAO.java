@@ -6,6 +6,6 @@ public interface RecipeDAO {
 
     boolean save(Recipe recipe);
 
-    Recipe getRecipeOfId(Integer id);
+    Recipe getRecipeOfId(Long id);
 
 }

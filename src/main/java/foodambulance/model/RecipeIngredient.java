@@ -12,7 +12,7 @@ public class RecipeIngredient {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "RECIPE_ID")
@@ -24,11 +24,11 @@ public class RecipeIngredient {
     @JsonManagedReference
     private Product product;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

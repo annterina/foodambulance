@@ -27,7 +27,7 @@ public class RecipeDAOImpl implements RecipeDAO{
     }
 
     @Override
-    public Recipe getRecipeOfId(Integer id) {
+    public Recipe getRecipeOfId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(Recipe.class, id);
     }
