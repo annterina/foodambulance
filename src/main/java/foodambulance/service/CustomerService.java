@@ -2,6 +2,7 @@ package foodambulance.service;
 
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.Recipe;
+import foodambulance.prioritizer.ComparedRecipe;
 
 import java.util.List;
 import java.util.Set;
@@ -14,5 +15,5 @@ public interface CustomerService {
 
     boolean addRecipeToCustomerOfId(Long aLong, String recipeBody);
 
-    List<Recipe> getPossibleRecipesOfCustomerOfId(Long id);
+    List<ComparedRecipe> getPossibleRecipesOfCustomerOfId(Long id);
 }

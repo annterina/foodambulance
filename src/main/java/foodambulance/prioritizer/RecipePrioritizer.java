@@ -38,13 +38,15 @@ public class RecipePrioritizer {
         comparedRecipe.getRecipe().getIngredients().forEach(recipeIngredient -> {
             if (!(products.containsKey(recipeIngredient.getProduct().getId()) &&
                 recipeIngredient.getAmount() <= products.get(recipeIngredient.getProduct().getId()).getAmount())) {
-                comparedRecipe.setMissingProducts(comparedRecipe.getMissingProducts() + 1);
-                return;
+                comparedRecipe.setMissingProductsNumber(comparedRecipe.getMissingProductsNumber() + 1);
+                comparedRecipe.getMissingProducts().add(recipeIngredient);
             }
-            LocalDateTime newestBuyDateOfProduct =
-                    products.get(recipeIngredient.getProduct().getId()).getNewestBuyDate();
-            if (comparedRecipe.getNewestBuyDate().isAfter(newestBuyDateOfProduct))
-                comparedRecipe.setNewestBuyDate(newestBuyDateOfProduct);
+            else {
+                LocalDateTime newestBuyDateOfProduct =
+                        products.get(recipeIngredient.getProduct().getId()).getNewestBuyDate();
+                if (comparedRecipe.getNewestBuyDate().isAfter(newestBuyDateOfProduct))
+                    comparedRecipe.setNewestBuyDate(newestBuyDateOfProduct);
+            }
         });
     }
 
