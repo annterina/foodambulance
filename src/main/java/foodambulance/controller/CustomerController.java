@@ -46,4 +46,15 @@ public class CustomerController {
         if (result) response.setStatus(HttpServletResponse.SC_OK);
         else response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
+
+    @RequestMapping(value = "/customer/{id}/addrecipe",method = RequestMethod.POST,
+            consumes = "application/json; charset=UTF-8")
+    @CrossOrigin
+    public void addRecipeToCustomerOfId(@PathVariable String id, @RequestBody String recipeBody,
+                                        HttpServletResponse response) {
+        response.setCharacterEncoding("utf-8");
+        boolean result = customerService.addRecipeToCustomerOfId(new Long(id), recipeBody);
+        if (result) response.setStatus(HttpServletResponse.SC_OK);
+        else response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    }
 }

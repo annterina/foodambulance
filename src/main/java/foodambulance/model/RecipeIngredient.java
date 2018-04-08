@@ -24,6 +24,9 @@ public class RecipeIngredient {
     @JsonManagedReference
     private Product product;
 
+    @Column
+    private Float amount;
+
     public Long getId() {
         return id;
     }
@@ -46,5 +49,13 @@ public class RecipeIngredient {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
     }
 }

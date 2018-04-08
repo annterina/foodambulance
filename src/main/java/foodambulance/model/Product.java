@@ -1,6 +1,7 @@
 package foodambulance.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -33,10 +34,12 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     @JsonBackReference
+    @JsonIgnore
     private Set<CustomerProduct> customerProducts = new HashSet<>();
 
     @OneToMany(mappedBy = "product")
     @JsonBackReference
+    @JsonIgnore
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
     public Long getId() {

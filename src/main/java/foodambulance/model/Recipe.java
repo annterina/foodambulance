@@ -2,6 +2,7 @@ package foodambulance.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Recipe {
 
     @ManyToOne
     @JsonManagedReference
+    @JsonIgnore
     private Customer customer;
 
     @Column(name = "PUBLIC")

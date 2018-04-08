@@ -10,4 +10,5 @@ public interface CustomerService {
 
     boolean addCustomerProductToCustomerOfId(Long id, String customerProductBody);
 
+    boolean addRecipeToCustomerOfId(Long aLong, String recipeBody);
 }
