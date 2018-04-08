@@ -13,6 +13,7 @@ public class ComparedRecipe {
     public ComparedRecipe(Recipe recipe) {
         this.recipe = recipe;
         this.missingProducts = 0;
+        this.newestBuyDate = LocalDateTime.now();
     }
 
     public Recipe getRecipe() {
