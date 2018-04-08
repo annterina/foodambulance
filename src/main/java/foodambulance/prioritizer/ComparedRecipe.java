@@ -1,18 +1,24 @@
 package foodambulance.prioritizer;
 
 import foodambulance.model.Recipe;
+import foodambulance.model.RecipeIngredient;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ComparedRecipe {
 
     private Recipe recipe;
-    private Integer missingProducts;
+    private Integer missingProductsNumber;
     private LocalDateTime newestBuyDate;
+    private Set<RecipeIngredient> missingProducts;
 
     public ComparedRecipe(Recipe recipe) {
         this.recipe = recipe;
-        this.missingProducts = 0;
+        this.missingProductsNumber = 0;
+        this.newestBuyDate = LocalDateTime.now();
+        this.missingProducts = new HashSet<>();
     }
 
     public Recipe getRecipe() {
@@ -23,12 +29,12 @@ public class ComparedRecipe {
         this.recipe = recipe;
     }
 
-    public Integer getMissingProducts() {
-        return missingProducts;
+    public Integer getMissingProductsNumber() {
+        return missingProductsNumber;
     }
 
-    public void setMissingProducts(Integer missingProducts) {
-        this.missingProducts = missingProducts;
+    public void setMissingProductsNumber(Integer missingProducts) {
+        this.missingProductsNumber = missingProducts;
     }
 
     public LocalDateTime getNewestBuyDate() {
@@ -37,5 +43,13 @@ public class ComparedRecipe {
 
     public void setNewestBuyDate(LocalDateTime newestBuyDate) {
         this.newestBuyDate = newestBuyDate;
+    }
+
+    public Set<RecipeIngredient> getMissingProducts() {
+        return missingProducts;
+    }
+
+    public void setMissingProducts(Set<RecipeIngredient> missingProducts) {
+        this.missingProducts = missingProducts;
     }
 }

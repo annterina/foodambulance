@@ -8,6 +8,7 @@ import foodambulance.model.Customer;
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.Product;
 import foodambulance.model.Recipe;
+import foodambulance.prioritizer.ComparedRecipe;
 import foodambulance.prioritizer.RecipePrioritizer;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -92,12 +94,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public List<Recipe> getPossibleRecipesOfCustomerOfId(Long id) {
+    public List<ComparedRecipe> getPossibleRecipesOfCustomerOfId(Long id) {
         Customer customer = customerDAO.getCustomerOfId(id);
         Hibernate.initialize(customer.getCustomerProducts());
         Set<CustomerProduct> customerProducts = customer.getCustomerProducts();
         Set<Recipe> customerRecipes = customer.getRecipes();
         RecipePrioritizer recipePrioritizer = new RecipePrioritizer(customerProducts, customerRecipes);
-        return recipePrioritizer.sortRecipes();
+        List<ComparedRecipe> comparedRecipes = new LinkedList<>(recipePrioritizer.sortRecipes());
+        return comparedRecipes;
     }
 }
