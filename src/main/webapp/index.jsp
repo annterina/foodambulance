@@ -11,6 +11,9 @@
     <title>Food ambulance</title>
   </head>
   <body>
-  Hello!
+  <h1>My App</h1>
+  <div id="app"></div>
+  <script src="resources/scripts/vue.js"></script>
+  <script src="resources/scripts/app.js"></script>
   </body>
 </html>

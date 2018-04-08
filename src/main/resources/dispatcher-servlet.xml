@@ -16,6 +16,9 @@
 	<!-- Add support for conversion, formatting and validation support -->
     <mvc:annotation-driven/>
 
+
+	<mvc:resources mapping="/resources/**" location="resources/" />
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 				destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
