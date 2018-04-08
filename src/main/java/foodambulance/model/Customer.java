@@ -27,7 +27,7 @@ public class Customer {
     private Set<CustomerProduct> customerProducts = new HashSet<>();
 
     @OneToMany(mappedBy = "customer")
-    @JsonBackReference
+    @JsonBackReference(value = "customer-recipe")
     private Set<Recipe> recipes = new HashSet<>();
 
     public Long getId() {

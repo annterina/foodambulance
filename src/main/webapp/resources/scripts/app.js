@@ -24,7 +24,18 @@ const app = new Vue({
         addProduct(product){
             console.log(product.id);
             console.log(product.amount);
-
+            var customerProduct = [];
+            customerProduct.product = product;
+            customerProduct.amount = product.amount;
+            fetch("http://localhost:8080/customer/"+this.customerId+"/products/add", {
+                body: JSON.stringify(customerProduct),
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(() => {
+                })
         }
     },
     mounted() {

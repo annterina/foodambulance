@@ -16,7 +16,7 @@ public class RecipeIngredient {
 
     @ManyToOne
     @JoinColumn(name = "RECIPE_ID")
-    @JsonManagedReference
+    @JsonManagedReference(value = "recipe-recipeIngredient")
     private Recipe recipe;
 
     @ManyToOne

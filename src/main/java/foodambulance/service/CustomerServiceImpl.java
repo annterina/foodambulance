@@ -55,10 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
             CustomerProduct customerProduct = mapper.readValue(customerProductBody, CustomerProduct.class); //TODO
             customerProduct.setCustomer(customer);
 
-            Product product = productDAO.getProductOfId(customerProduct.getId());
-            customerProduct.setProduct(product);
-
-            CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, product.getId());
+            CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, customerProduct.getProduct().getId());
             if (oldCustomerProduct!=null) {
                 customerProduct.setAmount(oldCustomerProduct.getAmount() + customerProduct.getAmount());
             }

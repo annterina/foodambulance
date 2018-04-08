@@ -23,7 +23,7 @@ public class Recipe {
     private String name;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonManagedReference(value = "customer-recipe")
     @JsonIgnore
     private Customer customer;
 
@@ -31,7 +31,7 @@ public class Recipe {
     private boolean isPublic;
 
     @OneToMany(mappedBy = "recipe")
-    @JsonBackReference
+    @JsonBackReference(value = "recipe-recipeIngredient")
     private Set<RecipeIngredient> ingredients = new HashSet<>();
 
     public Long getId() {
