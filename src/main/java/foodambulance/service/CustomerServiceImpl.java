@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import foodambulance.dao.CustomerDAO;
 import foodambulance.dao.ProductDAO;
+import foodambulance.deserialization.StrippedCustomerProduct;
 import foodambulance.model.Customer;
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.Product;
@@ -52,17 +53,24 @@ public class CustomerServiceImpl implements CustomerService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new Hibernate5Module());
         try {
-            CustomerProduct customerProduct = mapper.readValue(customerProductBody, CustomerProduct.class); //TODO
-            customerProduct.setCustomer(customer);
+            StrippedCustomerProduct tempProduct = mapper.readValue(customerProductBody, StrippedCustomerProduct.class);
+            System.out.println(customerProductBody);
 
-            CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, customerProduct.getProduct().getId());
+            CustomerProduct customerProduct = new CustomerProduct();
+            customerProduct.setCustomer(customer);
+            customerProduct.setAmount(tempProduct.getAmount());
+            Product product = productDAO.getProductOfId(tempProduct.getProductId());
+            customerProduct.setProduct(product);
+
+            CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, product.getId());
             if (oldCustomerProduct!=null) {
                 customerProduct.setAmount(oldCustomerProduct.getAmount() + customerProduct.getAmount());
             }
-
             customerProduct.setNewestBuyDate(LocalDateTime.now());
+            System.out.println(customerProduct.toString());
 
             customerDAO.saveCustomerProduct(customerProduct);
+            System.out.println("Saved.");
             return true;
         } catch (Exception e) {
             LOGGER.error("Error during adding customer product to customer of id " + id);

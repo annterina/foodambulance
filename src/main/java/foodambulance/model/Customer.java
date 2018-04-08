@@ -1,6 +1,7 @@
 package foodambulance.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "CUSTOMER",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"ID"})})
+@JsonIgnoreProperties(value={ "customerProducts", "recipes" }, allowGetters=true)
 public class Customer {
 
     @Id
