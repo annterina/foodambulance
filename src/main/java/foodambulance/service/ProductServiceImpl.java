@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -42,5 +43,11 @@ public class ProductServiceImpl implements ProductService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Product> getProducts() {
+        return productDAO.getProducts();
     }
 }
