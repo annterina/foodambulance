@@ -35,7 +35,7 @@ public class CustomerController {
         }
     }
 
-    @RequestMapping(value = "/customer/{id}/addproduct",method = RequestMethod.POST,
+    @RequestMapping(value = "/customer/{id}/products/add",method = RequestMethod.POST,
             consumes = "application/json; charset=UTF-8")
     @CrossOrigin
     public void addCustomerProductToCustomerOfId(@PathVariable String id,
@@ -47,7 +47,7 @@ public class CustomerController {
         else response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 
-    @RequestMapping(value = "/customer/{id}/addrecipe",method = RequestMethod.POST,
+    @RequestMapping(value = "/customer/{id}/recipes/add",method = RequestMethod.POST,
             consumes = "application/json; charset=UTF-8")
     @CrossOrigin
     public void addRecipeToCustomerOfId(@PathVariable String id, @RequestBody String recipeBody,
@@ -56,5 +56,21 @@ public class CustomerController {
         boolean result = customerService.addRecipeToCustomerOfId(new Long(id), recipeBody);
         if (result) response.setStatus(HttpServletResponse.SC_OK);
         else response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/customer/{id}/products/plan", method = RequestMethod.GET,
+            produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    @CrossOrigin
+    public String getPossibleRecipesOfCustomerOfId(@PathVariable String id, HttpServletResponse response) {
+        response.setCharacterEncoding("utf-8");
+        try {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return new ObjectMapper().writeValueAsString(customerService.getPossibleRecipesOfCustomerOfId(new Long(id)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "Json processing error.";
+        }
     }
 }

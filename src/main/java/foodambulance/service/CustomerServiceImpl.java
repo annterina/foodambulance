@@ -8,6 +8,7 @@ import foodambulance.model.Customer;
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.Product;
 import foodambulance.model.Recipe;
+import foodambulance.prioritizer.RecipePrioritizer;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -75,5 +77,16 @@ public class CustomerServiceImpl implements CustomerService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Recipe> getPossibleRecipesOfCustomerOfId(Long id) {
+        Customer customer = customerDAO.getCustomerOfId(id);
+        Hibernate.initialize(customer.getCustomerProducts());
+        Set<CustomerProduct> customerProducts = customer.getCustomerProducts();
+        Set<Recipe> customerRecipes = customer.getRecipes();
+        RecipePrioritizer recipePrioritizer = new RecipePrioritizer(customerProducts, customerRecipes);
+        return recipePrioritizer.sortRecipes();
     }
 }

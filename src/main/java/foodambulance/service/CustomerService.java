@@ -1,7 +1,9 @@
 package foodambulance.service;
 
 import foodambulance.model.CustomerProduct;
+import foodambulance.model.Recipe;
 
+import java.util.List;
 import java.util.Set;
 
 public interface CustomerService {
@@ -11,4 +13,6 @@ public interface CustomerService {
     boolean addCustomerProductToCustomerOfId(Long id, String customerProductBody);
 
     boolean addRecipeToCustomerOfId(Long aLong, String recipeBody);
+
+    List<Recipe> getPossibleRecipesOfCustomerOfId(Long id);
 }
