@@ -58,6 +58,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public CustomerProduct getCustomerProduct(Long customerId, Long productId) {
-        return getCustomerOfId(customerId).getCustomerProducts().getOrDefault(productId, null);
+        for (CustomerProduct customerProduct :
+                getCustomerOfId(customerId).getCustomerProducts()) {
+            if (customerProduct.getId().equals(productId)) return customerProduct;
+        }
+        return null;
     }
 }

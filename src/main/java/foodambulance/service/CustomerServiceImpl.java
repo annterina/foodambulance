@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -36,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Map<Long, CustomerProduct> getProductsOfCustomerOfId(Long id) {
+    public Set<CustomerProduct> getProductsOfCustomerOfId(Long id) {
         Customer customer = customerDAO.getCustomerOfId(id);
         Hibernate.initialize(customer.getCustomerProducts());
         return customer.getCustomerProducts();
