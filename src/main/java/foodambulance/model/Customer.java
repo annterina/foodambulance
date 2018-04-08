@@ -3,7 +3,9 @@ package foodambulance.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -24,7 +26,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
-    private Set<CustomerProduct> customerProducts = new HashSet<>();
+    private Map<Long, CustomerProduct> customerProducts = new HashMap<>();
 
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
@@ -54,11 +56,11 @@ public class Customer {
         this.passwordHash = passwordHash;
     }
 
-    public Set<CustomerProduct> getCustomerProducts() {
+    public Map<Long, CustomerProduct> getCustomerProducts() {
         return customerProducts;
     }
 
-    public void setCustomerProducts(Set<CustomerProduct> customerProducts) {
+    public void setCustomerProducts(Map<Long, CustomerProduct> customerProducts) {
         this.customerProducts = customerProducts;
     }
 

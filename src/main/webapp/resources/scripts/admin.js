@@ -2,15 +2,15 @@ const admin = new Vue({
     el: "#admin",
     data: {
         error:"",
-        newProduct : null
+        newProduct : {name: "", categoryId : "", baseUnit:"", baseAmount:"", baseExpirationDate:""}
     },
     methods: {
         addProduct() {
-            if (this.newProduct.name!==null && this.newProduct.categoryId!==null && this.newProduct.baseUnit!==null
-                && this.newProduct.baseAmount!==null && this.newProduct.baseExpirationDate!==null)
+            if (this.newProduct.name!=="" && this.newProduct.categoryId!=="" && this.newProduct.baseUnit!==""
+                && this.newProduct.baseAmount!=="" && this.newProduct.baseExpirationDate!=="")
             {
-                fetch("http://localhost:8080/products/newProduct", {
-                    body: JSON.stringify(product),
+                fetch("http://localhost:8080/products/new", {
+                    body: JSON.stringify(this.newProduct),
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -30,11 +30,11 @@ const admin = new Vue({
     },
     template: `
         <div>
-        <input v-model="newProduct.name" required/>
-        <input v-model="newProduct.categoryId" required/>
-        <input v-model="newProduct.baseUnity" required/>
-        <input v-model="newProduct.baseAmount" required/>
-        <input v-model="newProduct.baseExpirationDate" required/>
+        Name: <input v-model="newProduct.name" required/> <br/>
+        Category Id: <input v-model="newProduct.categoryId" required/> <br/>
+        Base Unit: <input v-model="newProduct.baseUnit" required/> <br/>
+        Base Amount: <input v-model="newProduct.baseAmount" required/> <br/>
+        Base Expiration Date (Days): <input v-model="newProduct.baseExpirationDate" required/> <br/>
         <button v-on:click="addProduct()" class="btn btn-default"> Add product</button>
         {{error}}
         </div>

@@ -55,4 +55,9 @@ public class CustomerDAOImpl implements CustomerDAO {
         session.update(customerProduct);
         return true;
     }
+
+    @Override
+    public CustomerProduct getCustomerProduct(Long customerId, Long productId) {
+        return getCustomerOfId(customerId).getCustomerProducts().getOrDefault(productId, null);
+    }
 }

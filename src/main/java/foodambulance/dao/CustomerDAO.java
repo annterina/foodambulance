@@ -15,4 +15,6 @@ public interface CustomerDAO {
     boolean saveRecipe(Recipe recipe);
 
     boolean changeCustomerProductAmount(CustomerProduct customerProduct, Float amount);
+
+    CustomerProduct getCustomerProduct(Long customerId, Long productId);
 }

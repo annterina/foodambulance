@@ -12,9 +12,12 @@ import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -33,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Set<CustomerProduct> getProductsOfCustomerOfId(Long id) {
+    public Map<Long, CustomerProduct> getProductsOfCustomerOfId(Long id) {
         Customer customer = customerDAO.getCustomerOfId(id);
         Hibernate.initialize(customer.getCustomerProducts());
         return customer.getCustomerProducts();
@@ -48,8 +51,17 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             CustomerProduct customerProduct = mapper.readValue(customerProductBody, CustomerProduct.class);
             customerProduct.setCustomer(customer);
+
             Product product = productDAO.getProductOfId(customerProduct.getId());
             customerProduct.setProduct(product);
+
+            CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, product.getId());
+            if (oldCustomerProduct!=null) {
+                customerProduct.setAmount(oldCustomerProduct.getAmount() + customerProduct.getAmount());
+            }
+
+            customerProduct.setNewestBuyDate(LocalDateTime.now());
+
             customerDAO.saveCustomerProduct(customerProduct);
             return true;
         } catch (Exception e) {
