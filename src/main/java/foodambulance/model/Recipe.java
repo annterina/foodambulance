@@ -29,7 +29,7 @@ public class Recipe {
     private Customer customer;
 
     @Column(name = "PUBLIC")
-    private boolean isPublic;
+    private boolean isPublic = true;
 
     @OneToMany(mappedBy = "recipe")
     @JsonBackReference(value = "recipe-recipeIngredient")
