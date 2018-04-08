@@ -13,7 +13,7 @@ public class CustomerProduct {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
@@ -26,16 +26,16 @@ public class CustomerProduct {
     private Product product;
 
     @Column
-    private LocalDateTime oldestDate;
+    private LocalDateTime newestBuyDate;
 
     @Column
     private Float amount;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,12 +55,12 @@ public class CustomerProduct {
         this.product = product;
     }
 
-    public LocalDateTime getOldestDate() {
-        return oldestDate;
+    public LocalDateTime getNewestBuyDate() {
+        return newestBuyDate;
     }
 
-    public void setOldestDate(LocalDateTime oldestDate) {
-        this.oldestDate = oldestDate;
+    public void setNewestBuyDate(LocalDateTime newestBuyDate) {
+        this.newestBuyDate = newestBuyDate;
     }
 
     public Float getAmount() {

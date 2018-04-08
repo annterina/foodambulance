@@ -6,6 +6,6 @@ public interface ProductDAO {
 
     boolean save(Product product);
 
-    Product getProductOfId(Integer id);
+    Product getProductOfId(Long id);
 
 }

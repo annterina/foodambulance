@@ -69,6 +69,14 @@
 		<constructor-arg ref="customerService"/>
 	</bean>
 
+	<bean id="productService" class="foodambulance.service.ProductServiceImpl">
+		<constructor-arg ref="productDAO"/>
+	</bean>
+
+	<bean id="productController" class="foodambulance.controller.ProductController">
+		<constructor-arg ref="productService"/>
+	</bean>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">

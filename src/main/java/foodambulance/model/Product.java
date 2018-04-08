@@ -14,10 +14,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", updatable = false, nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column
-    private Integer categoryId;
+    private Long categoryId;
 
     @Column
     private String name;
@@ -35,24 +35,23 @@ public class Product {
     @JsonBackReference
     private Set<CustomerProduct> customerProducts = new HashSet<>();
 
-
     @OneToMany(mappedBy = "product")
     @JsonBackReference
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 

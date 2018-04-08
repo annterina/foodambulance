@@ -6,6 +6,9 @@ import java.util.Set;
 
 public interface CustomerService {
 
-    Set<CustomerProduct> getProductsOfCustomerOfId(Integer id);
+    Set<CustomerProduct> getProductsOfCustomerOfId(Long id);
 
+    boolean addCustomerProductToCustomerOfId(Long id, String customerProductBody);
+
+    boolean addRecipeToCustomerOfId(Long aLong, String recipeBody);
 }

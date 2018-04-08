@@ -29,10 +29,10 @@ public class CustomerDAOImplTest {
         customer.setPasswordHash("qwerty");
         Set<CustomerProduct> customerProducts = new HashSet<>();
         CustomerProduct product = new CustomerProduct();
-        product.setId(1);
+        product.setId(1l);
         product.setCustomer(customer);
         product.setAmount(2f);
-        product.setOldestDate(LocalDateTime.now());
+        product.setNewestBuyDate(LocalDateTime.now());
         customer.setCustomerProducts(customerProducts);
         customerDAO.save(customer);
         Customer databaseCustomer = customerDAO.getCustomerOfId(customer.getId());

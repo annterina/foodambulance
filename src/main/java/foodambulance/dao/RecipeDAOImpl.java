@@ -1,11 +1,8 @@
 package foodambulance.dao;
 
-import foodambulance.model.Product;
 import foodambulance.model.Recipe;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +24,7 @@ public class RecipeDAOImpl implements RecipeDAO{
     }
 
     @Override
-    public Recipe getRecipeOfId(Integer id) {
+    public Recipe getRecipeOfId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(Recipe.class, id);
     }

@@ -2,6 +2,7 @@ package foodambulance.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -16,13 +17,14 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", updatable = false, nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column
     private String name;
 
     @ManyToOne
     @JsonManagedReference
+    @JsonIgnore
     private Customer customer;
 
     @Column(name = "PUBLIC")
@@ -32,11 +34,11 @@ public class Recipe {
     @JsonBackReference
     private Set<RecipeIngredient> ingredients = new HashSet<>();
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
