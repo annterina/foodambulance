@@ -67,9 +67,9 @@ public class CustomerServiceImpl implements CustomerService {
                 customerProduct.setAmount(oldCustomerProduct.getAmount() + customerProduct.getAmount());
             }
             customerProduct.setNewestBuyDate(LocalDateTime.now());
-            System.out.println(customerProduct.toString());
 
             customerDAO.saveCustomerProduct(customerProduct);
+            System.out.println(mapper.writeValueAsString(customerProduct));
             System.out.println("Saved.");
             return true;
         } catch (Exception e) {

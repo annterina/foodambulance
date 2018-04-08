@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "RECIPE_INGREDIENT",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"ID"}), @UniqueConstraint(columnNames = {"RECIPE_ID"}), @UniqueConstraint(columnNames = {"PRODUCT_ID"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"ID"})})
 public class RecipeIngredient {
 
     @Id
