@@ -29,7 +29,7 @@ public class CustomerDAOImplTest {
         customer.setPasswordHash("qwerty");
         Set<CustomerProduct> customerProducts = new HashSet<>();
         CustomerProduct product = new CustomerProduct();
-        product.setId(1);
+        product.setId(1l);
         product.setCustomer(customer);
         product.setAmount(2f);
         product.setNewestBuyDate(LocalDateTime.now());

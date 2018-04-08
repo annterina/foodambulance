@@ -1,6 +1,5 @@
 package foodambulance.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -19,13 +18,11 @@ public class CustomerProduct {
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
     @JsonManagedReference
-    @JsonIgnore
     private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
     @JsonManagedReference
-    @JsonIgnore
     private Product product;
 
     @Column
