@@ -43,7 +43,7 @@ const app = new Vue({
         // }
     },
     mounted() {
-        this.methods.showAvailableProducts()
+        this.showAvailableProducts()
     },
     template: `
         <div>
@@ -53,7 +53,7 @@ const app = new Vue({
               Base Amount : {{product.baseAmount}}
         </li>
         
-        <button v-on:click="showMyProducts(1)"> Show My Products</button>
+        <button v-on:click="showMyProducts(1)" class="btn btn-default"> Show My Products</button>
           <li v-for="product, i in myProducts">
               {{product.product.name}}
           </li>
