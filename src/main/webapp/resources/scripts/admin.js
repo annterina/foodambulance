@@ -30,6 +30,7 @@ const admin = new Vue({
     },
     template: `
         <div>
+        <h2>Adding new product: </h2> <br/>
         Name: <input v-model="newProduct.name" required/> <br/>
         Category Id: <input v-model="newProduct.categoryId" required/> <br/>
         Base Unit: <input v-model="newProduct.baseUnit" required/> <br/>

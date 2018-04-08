@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new Hibernate5Module());
         try {
-            CustomerProduct customerProduct = mapper.readValue(customerProductBody, CustomerProduct.class);
+            CustomerProduct customerProduct = mapper.readValue(customerProductBody, CustomerProduct.class); //TODO
             customerProduct.setCustomer(customer);
 
             Product product = productDAO.getProductOfId(customerProduct.getId());

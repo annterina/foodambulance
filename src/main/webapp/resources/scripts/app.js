@@ -4,7 +4,7 @@ const app = new Vue({
         editFriend: null,
         products: [],
         myProducts: [],
-        customerId: 1
+        customerId: 1,
     },
     methods: {
         showMyProducts(id){
@@ -20,27 +20,12 @@ const app = new Vue({
                 .then((data) => {
                     this.products = data;
                 })
+        },
+        addProduct(product){
+            console.log(product.id);
+            console.log(product.amount);
+
         }
-        // deleteFriend(id, i) {
-        //     fetch("http://rest.learncode.academy/api/vue-5/friends/" + id, {
-        //         method: "DELETE"
-        //     })
-        //         .then(() => {
-        //         this.friends.splice(i, 1);
-        // })
-        // },
-        // updateFriend(friend) {
-        //     fetch("http://rest.learncode.academy/api/vue-5/friends/" + friend.id, {
-        //         body: JSON.stringify(friend),
-        //         method: "PUT",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //     })
-        //         .then(() => {
-        //         this.editFriend = null;
-        // })
-        // }
     },
     mounted() {
         this.showAvailableProducts()
@@ -48,9 +33,13 @@ const app = new Vue({
     template: `
         <div>
         <h2>All products</h2>
-        <li v-for="product, i in products">
+        <li v-for="(product, i) in products">
               Name : {{product.name}}
+              Unit : {{product.baseUnit}}
               Base Amount : {{product.baseAmount}}
+              Category id : {{product.categoryId}}
+              <button v-on:click="addProduct(product)" class="btn btn-default"> Add this product to your fridge</button>
+              Amount you want to add: <input v-model = "product.amount"/>
         </li>
         
         <button v-on:click="showMyProducts(1)" class="btn btn-default"> Show My Products</button>
