@@ -13,9 +13,11 @@ import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -50,8 +52,17 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             CustomerProduct customerProduct = mapper.readValue(customerProductBody, CustomerProduct.class);
             customerProduct.setCustomer(customer);
+
             Product product = productDAO.getProductOfId(customerProduct.getId());
             customerProduct.setProduct(product);
+
+            CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, product.getId());
+            if (oldCustomerProduct!=null) {
+                customerProduct.setAmount(oldCustomerProduct.getAmount() + customerProduct.getAmount());
+            }
+
+            customerProduct.setNewestBuyDate(LocalDateTime.now());
+
             customerDAO.saveCustomerProduct(customerProduct);
             return true;
         } catch (Exception e) {

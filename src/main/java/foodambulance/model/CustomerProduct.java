@@ -22,7 +22,7 @@ public class CustomerProduct {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
-    @JsonManagedReference
+    @JsonManagedReference(value = "customerProduct-product")
     private Product product;
 
     @Column

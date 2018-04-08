@@ -1,6 +1,7 @@
 package foodambulance.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "PRODUCT",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"ID"})})
+@JsonIgnoreProperties(value={ "customerProducts", "recipeIngredients" }, allowGetters=true)
 public class Product {
 
     @Id
@@ -32,7 +34,7 @@ public class Product {
     private Integer baseExpirationDate;
 
     @OneToMany(mappedBy = "product")
-    @JsonBackReference
+    @JsonBackReference(value = "customerProduct-product")
     private Set<CustomerProduct> customerProducts = new HashSet<>();
 
     @OneToMany(mappedBy = "product")
