@@ -19,7 +19,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(value = "/newproduct",method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
+    @RequestMapping(value = "/products/new",method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
     @CrossOrigin
     public void addProduct(@RequestBody String productBody, HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");
