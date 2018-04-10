@@ -31,12 +31,12 @@ const admin = new Vue({
             if(this.recipeName !== ""){
                 var recipe = {};
                 recipe.name = this.recipeName;
-                recipe.ingredientIds = [];
-                recipe.ingredientAmounts = [];
+                recipe.recipeIngredientsIds = [];
+                recipe.recipeIngredientsAmount = [];
                 for (var i = 0; i < this.recipeIngredients.length; i++){
                     if (this.recipeIngredients[i].amount!==0) {
-                        recipe.ingredientIds.push(this.recipeIngredients[i].product.id);
-                        recipe.ingredientAmounts.push(this.recipeIngredients[i].amount);
+                        recipe.recipeIngredientsIds.push(this.recipeIngredients[i].product.id);
+                        recipe.recipeIngredientsAmount.push(this.recipeIngredients[i].amount);
                     }
                 }
                 console.log(recipe);

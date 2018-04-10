@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import foodambulance.dao.CustomerDAO;
 import foodambulance.dao.ProductDAO;
+import foodambulance.dao.RecipeDAO;
 import foodambulance.deserialization.StrippedCustomerProduct;
-import foodambulance.model.Customer;
-import foodambulance.model.CustomerProduct;
-import foodambulance.model.Product;
-import foodambulance.model.Recipe;
+import foodambulance.deserialization.StrippedRecipe;
+import foodambulance.model.*;
 import foodambulance.prioritizer.ComparedRecipe;
 import foodambulance.prioritizer.RecipePrioritizer;
 import org.hibernate.Hibernate;
@@ -20,9 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -31,11 +30,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerDAO customerDAO;
     private ProductDAO productDAO;
+    private RecipeDAO recipeDAO;
 
     @Autowired
-    public CustomerServiceImpl(CustomerDAO customerDAO, ProductDAO productDAO) {
+    public CustomerServiceImpl(CustomerDAO customerDAO, ProductDAO productDAO, RecipeDAO recipeDAO) {
         this.customerDAO = customerDAO;
         this.productDAO = productDAO;
+        this.recipeDAO = recipeDAO;
     }
 
     @Override
@@ -54,23 +55,18 @@ public class CustomerServiceImpl implements CustomerService {
         mapper.registerModule(new Hibernate5Module());
         try {
             StrippedCustomerProduct tempProduct = mapper.readValue(customerProductBody, StrippedCustomerProduct.class);
-            System.out.println(customerProductBody);
 
             CustomerProduct customerProduct = new CustomerProduct();
             customerProduct.setCustomer(customer);
             customerProduct.setAmount(tempProduct.getAmount());
             Product product = productDAO.getProductOfId(tempProduct.getProductId());
             customerProduct.setProduct(product);
-
             CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, product.getId());
             if (oldCustomerProduct!=null) {
                 customerProduct.setAmount(oldCustomerProduct.getAmount() + customerProduct.getAmount());
             }
             customerProduct.setNewestBuyDate(LocalDateTime.now());
-
             customerDAO.saveCustomerProduct(customerProduct);
-            System.out.println(mapper.writeValueAsString(customerProduct));
-            System.out.println("Saved.");
             return true;
         } catch (Exception e) {
             LOGGER.error("Error during adding customer product to customer of id " + id);
@@ -86,9 +82,25 @@ public class CustomerServiceImpl implements CustomerService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new Hibernate5Module());
         try {
-            Recipe recipe = mapper.readValue(recipeBody, Recipe.class);
+            StrippedRecipe strippedRecipe = mapper.readValue(recipeBody, StrippedRecipe.class);
+            Map<Long, Float> ingredientsMap = IntStream.range(0, strippedRecipe.getRecipeIngredientsIds().size()).boxed()
+                    .collect(Collectors.toMap(strippedRecipe.getRecipeIngredientsIds()::get,
+                            strippedRecipe.getRecipeIngredientsAmount()::get));
+            Recipe recipe = new Recipe();
             recipe.setCustomer(customer);
-            customerDAO.saveRecipe(recipe);
+            recipe.setName(strippedRecipe.getName());
+            List<Long> recipeIngredientsIds = strippedRecipe.getRecipeIngredientsIds();
+            Set<RecipeIngredient> recipeIngredients = new HashSet<>();
+            recipeIngredientsIds.forEach(ingredientId -> {
+                RecipeIngredient recipeIngredient = new RecipeIngredient();
+                recipeIngredient.setRecipe(recipe);
+                recipeIngredient.setProduct(productDAO.getProductOfId(ingredientId));
+                recipeIngredient.setAmount(ingredientsMap.get(ingredientId));
+                recipeIngredients.add(recipeIngredient);
+                // TODO add isPublic setting
+            });
+            recipe.setIngredients(recipeIngredients);
+            recipeDAO.save(recipe);
             return true;
         } catch (Exception e) {
             LOGGER.error("Error during adding recipe to customer of id " + id);
@@ -103,7 +115,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerDAO.getCustomerOfId(id);
         Hibernate.initialize(customer.getCustomerProducts());
         Set<CustomerProduct> customerProducts = customer.getCustomerProducts();
-        Set<Recipe> customerRecipes = customer.getRecipes();
+        Set<Recipe> customerRecipes = new HashSet<>(recipeDAO.getRecipes());
         RecipePrioritizer recipePrioritizer = new RecipePrioritizer(customerProducts, customerRecipes);
         List<ComparedRecipe> comparedRecipes = new LinkedList<>(recipePrioritizer.sortRecipes());
         return comparedRecipes;
