@@ -115,7 +115,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerDAO.getCustomerOfId(id);
         Hibernate.initialize(customer.getCustomerProducts());
         Set<CustomerProduct> customerProducts = customer.getCustomerProducts();
-        Set<Recipe> customerRecipes = new HashSet<>(recipeDAO.getRecipes());
+        Set<Recipe> customerRecipes = customer.getRecipes();
         RecipePrioritizer recipePrioritizer = new RecipePrioritizer(customerProducts, customerRecipes);
         List<ComparedRecipe> comparedRecipes = new LinkedList<>(recipePrioritizer.sortRecipes());
         return comparedRecipes;

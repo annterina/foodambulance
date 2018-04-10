@@ -13,9 +13,17 @@
   </head>
   <body>
   <h1>My App</h1>
-  <div id="app"></div>
+  <div class="container">
+    <div class="row">
+      <div id="app"></div>
+      <div id="recipes"></div>
+      <a href="resources/admin.html" class="btn btn-default">Administrator Console</a>
+    </div>
+  </div>
+
+
   <script src="resources/scripts/vue.js"></script>
   <script src="resources/scripts/app.js"></script>
-  <a href="resources/admin.html" class="btn btn-default">Administrator Console</a>
+  <script src="resources/scripts/recipes.js"></script>
   </body>
 </html>

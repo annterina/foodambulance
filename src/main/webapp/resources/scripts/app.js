@@ -57,7 +57,7 @@ const app = new Vue({
         
         <button v-on:click="showMyProducts(1)" class="btn btn-default"> Show My Products</button>
           <li v-for="product, i in myProducts">
-              {{product.product.name}}
+              {{product.product.name}} Amount: {{product.product.amount}} {{product.product.baseUnit}}
           </li>
         </div>
     `,
