@@ -4,7 +4,7 @@ const app = new Vue({
         editFriend: null,
         products: [],
         myProducts: [],
-        customerId: 1,
+        customerId: 1
     },
     methods: {
         showMyProducts(id){

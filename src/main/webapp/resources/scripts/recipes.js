@@ -5,10 +5,11 @@ const recipes = new Vue({
         recipeList: [],
         myRecipes: [],
         customerId: 1,
+        comparedRecipes: []
     },
     methods: {
         showMyRecipes(id){
-            fetch("http://localhost:8080/customer/{id}/recipes" + this.customerId)
+            fetch("http://localhost:8080/customer/" + this.customerId + "/recipes")
                 .then(response => response.json())
                 .then((data) => {
                     this.myRecipes = data;
@@ -19,6 +20,13 @@ const recipes = new Vue({
                 .then(response => response.json())
                 .then((data) => {
                     this.recipeList = data;
+                })
+        },
+        showSortedRecipes(customerId){
+            fetch("http://localhost:8080/customer/" + this.customerId + "/products/plan")
+                .then(response => response.json())
+                .then((data) => {
+                    this.comparedRecipes = data;
                 })
         },
         addRecipe(recipeId){
@@ -47,13 +55,21 @@ const recipes = new Vue({
               <button v-on:click="addRecipe(recipe.id)" class="btn btn-default"> Add this recipe to your account</button>
         </li>
         
-          <button v-on:click="showMyRecipes(1)" class="btn btn-default"> Show My Recipes </button>
+          <button v-on:click="showMyRecipes(1)" class="btn btn-default"> Show My Recipes </button> <br/>
           <li v-for="recipe in myRecipes">
               Name : {{recipe.name}}
               <!--<li v-for="ingredient in recipe.ingredients">-->
                     <!--{{ingredient.name}} - {{ingredient.amount}} {{ingredient.baseUnit}}-->
               <!--</li>          -->
            </li>
+          <br/>
+          <button v-on:click="showSortedRecipes(1)" class="btn btn-default"> What can I cook?</button>
+          <li v-for="recipe, i in comparedRecipes">
+              {{recipe.recipe.name}} : Missing {{recipe.missingProductsNumber}} products:
+               <!--<li v-for="product in recipe.missingProducts">-->
+               <!--{{product.name}}-->
+               <!--</li>-->
+          </li>
         </div>
     `,
 });
