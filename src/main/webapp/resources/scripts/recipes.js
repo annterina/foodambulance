@@ -5,7 +5,8 @@ const recipes = new Vue({
         recipeList: [],
         myRecipes: [],
         customerId: 1,
-        comparedRecipes: []
+        comparedRecipes: [{recipe:{name:""}, missingProducts:[], missingProductsNumber: 0}],
+        recipe: {missingProducts:[]}
     },
     methods: {
         showMyRecipes(id){
@@ -66,9 +67,9 @@ const recipes = new Vue({
           <button v-on:click="showSortedRecipes(1)" class="btn btn-default"> What can I cook?</button>
           <li v-for="recipe, i in comparedRecipes">
               {{recipe.recipe.name}} : Missing {{recipe.missingProductsNumber}} products:
-               <!--<li v-for="product in recipe.missingProducts">-->
-               <!--{{product.name}}-->
-               <!--</li>-->
+               <li v-for="product in recipe.missingProducts">
+               {{product.name}}
+               </li>
           </li>
         </div>
     `,
