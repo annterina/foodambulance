@@ -49,6 +49,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
+    public Set<Recipe> getRecipesOfCustomerOfId(Long id) {
+        Customer customer = customerDAO.getCustomerOfId(id);
+        Hibernate.initialize(customer.getRecipes());
+        return customer.getRecipes();
+    }
+
+    @Override
+    @Transactional
     public boolean addCustomerProductToCustomerOfId(Long id, String customerProductBody) {
         Customer customer = customerDAO.getCustomerOfId(id);
         ObjectMapper mapper = new ObjectMapper();
@@ -107,6 +115,16 @@ public class CustomerServiceImpl implements CustomerService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean addPublicRecipeToCustomerOfId(Long customerId, Long recipeId) {
+        Customer customer = customerDAO.getCustomerOfId(customerId);
+        Recipe recipe = recipeDAO.getRecipeOfId(recipeId);
+        customer.getRecipes().add(recipe);
+        customerDAO.save(customer);
+        recipeDAO.save(recipe);
+        return true;
     }
 
     @Override

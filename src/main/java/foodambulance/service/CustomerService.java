@@ -11,9 +11,13 @@ public interface CustomerService {
 
     Set<CustomerProduct> getProductsOfCustomerOfId(Long id);
 
+    Set<Recipe> getRecipesOfCustomerOfId(Long id);
+
     boolean addCustomerProductToCustomerOfId(Long id, String customerProductBody);
 
-    boolean addRecipeToCustomerOfId(Long aLong, String recipeBody);
+    boolean addRecipeToCustomerOfId(Long id, String recipeBody);
 
     List<ComparedRecipe> getPossibleRecipesOfCustomerOfId(Long id);
+
+    boolean addPublicRecipeToCustomerOfId(Long customerId, Long recipeId);
 }
