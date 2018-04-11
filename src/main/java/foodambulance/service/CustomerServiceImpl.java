@@ -118,10 +118,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public boolean addPublicRecipeToCustomerOfId(Long customerId, Long recipeId) {
         Customer customer = customerDAO.getCustomerOfId(customerId);
         Recipe recipe = recipeDAO.getRecipeOfId(recipeId);
-        customer.getRecipes().add(recipe);
+        recipe.setCustomer(customer);
         customerDAO.save(customer);
         recipeDAO.save(recipe);
         return true;
