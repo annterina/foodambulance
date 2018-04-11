@@ -63,18 +63,22 @@ public class CustomerServiceImpl implements CustomerService {
         mapper.registerModule(new Hibernate5Module());
         try {
             StrippedCustomerProduct tempProduct = mapper.readValue(customerProductBody, StrippedCustomerProduct.class);
-
-            CustomerProduct customerProduct = new CustomerProduct();
-            customerProduct.setCustomer(customer);
-            customerProduct.setAmount(tempProduct.getAmount());
-            Product product = productDAO.getProductOfId(tempProduct.getProductId());
-            customerProduct.setProduct(product);
-            CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, product.getId());
-            if (oldCustomerProduct!=null) {
-                customerProduct.setAmount(oldCustomerProduct.getAmount() + customerProduct.getAmount());
+            CustomerProduct oldCustomerProduct = customerDAO.getCustomerProduct(id, tempProduct.getProductId());
+            if (oldCustomerProduct==null) {
+                System.out.println("Old customer product null");
+                CustomerProduct customerProduct = new CustomerProduct();
+                customerProduct.setCustomer(customer);
+                customerProduct.setAmount(tempProduct.getAmount());
+                Product product = productDAO.getProductOfId(tempProduct.getProductId());
+                customerProduct.setProduct(product);
+                customerProduct.setNewestBuyDate(LocalDateTime.now());
+                customerDAO.saveCustomerProduct(customerProduct);
             }
-            customerProduct.setNewestBuyDate(LocalDateTime.now());
-            customerDAO.saveCustomerProduct(customerProduct);
+            else{
+                System.out.println("ASDASD ");
+                System.out.println(oldCustomerProduct.getProduct().getId());
+                customerDAO.changeCustomerProductAmount(oldCustomerProduct, tempProduct.getAmount());
+            }
             return true;
         } catch (Exception e) {
             LOGGER.error("Error during adding customer product to customer of id " + id);

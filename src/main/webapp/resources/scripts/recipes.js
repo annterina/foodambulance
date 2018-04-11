@@ -65,10 +65,10 @@ const recipes = new Vue({
            </li>
           <br/>
           <button v-on:click="showSortedRecipes(1)" class="btn btn-default"> What can I cook?</button>
-          <li v-for="recipe, i in comparedRecipes">
+          <li v-for="recipe in comparedRecipes">
               {{recipe.recipe.name}} : Missing {{recipe.missingProductsNumber}} products:
                <li v-for="product in recipe.missingProducts">
-               {{product.name}}
+               {{product.product.name}}
                </li>
           </li>
         </div>

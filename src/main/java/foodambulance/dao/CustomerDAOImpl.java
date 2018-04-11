@@ -51,6 +51,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     public boolean changeCustomerProductAmount(CustomerProduct customerProduct, Float amount) {
         Session session = this.sessionFactory.getCurrentSession();
         Float newAmount = customerProduct.getAmount() + amount;
+        session.evict(customerProduct);
         customerProduct.setAmount(newAmount);
         session.update(customerProduct);
         return true;
@@ -60,7 +61,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     public CustomerProduct getCustomerProduct(Long customerId, Long productId) {
         for (CustomerProduct customerProduct :
                 getCustomerOfId(customerId).getCustomerProducts()) {
-            if (customerProduct.getId().equals(productId)) return customerProduct;
+            if (customerProduct.getProduct().getId().equals(productId)) return customerProduct;
         }
         return null;
     }

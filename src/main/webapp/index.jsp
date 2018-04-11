@@ -17,6 +17,7 @@
     <div class="row">
       <div id="app"></div>
       <div id="recipes"></div>
+      <br><br><br>
       <a href="resources/admin.html" class="btn btn-default">Administrator Console</a>
     </div>
   </div>

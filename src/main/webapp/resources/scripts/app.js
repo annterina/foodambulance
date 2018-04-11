@@ -48,16 +48,14 @@ const app = new Vue({
         <h2>All products</h2>
         <li v-for="(product, i) in products">
               Name : {{product.name}}
-              Unit : {{product.baseUnit}}
-              Base Amount : {{product.baseAmount}}
               Category id : {{product.categoryId}}
               <button v-on:click="addProduct(product)" class="btn btn-default"> Add this product to your fridge</button>
-              Amount you want to add: <input v-model = "product.amount"/>
+              Amount you want to add: <input v-model = "product.amount"/> {{product.baseAmount}} {{product.baseUnit}}
         </li>
         
         <button v-on:click="showMyProducts(1)" class="btn btn-default"> Show My Products</button>
           <li v-for="product, i in myProducts">
-              {{product.product.name}} Amount: {{product.product.amount}} {{product.product.baseUnit}}
+              {{product.product.name}} Amount: {{product.amount}} {{product.product.baseUnit}}
           </li>
         </div>
     `,
