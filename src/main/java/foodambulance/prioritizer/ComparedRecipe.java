@@ -21,6 +21,7 @@ public class ComparedRecipe {
         this.missingProducts = new HashSet<>();
     }
 
+
     public Recipe getRecipe() {
         return recipe;
     }

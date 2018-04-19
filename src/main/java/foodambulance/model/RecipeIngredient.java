@@ -58,4 +58,5 @@ public class RecipeIngredient {
     public void setAmount(Float amount) {
         this.amount = amount;
     }
+
 }
