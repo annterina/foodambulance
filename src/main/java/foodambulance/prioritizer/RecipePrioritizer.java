@@ -2,7 +2,6 @@ package foodambulance.prioritizer;
 
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.Recipe;
-import foodambulance.model.RecipeIngredient;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -14,27 +13,27 @@ public class RecipePrioritizer {
 
     public RecipePrioritizer(Set<CustomerProduct> customerProducts, Set<Recipe> customerRecipes) {
         this.customerProducts = new HashMap<>();
-        customerProducts.stream().forEach(customerProduct -> createCustomerProductsMap(customerProduct));
+        customerProducts.forEach(this::createCustomerProductsMap);
         this.comparedRecipes = new HashSet<>();
-        customerRecipes.stream().forEach(customerRecipe -> createComparedRecipesSet(customerRecipe));
+        customerRecipes.forEach(this::addComparedRecipeToSet);
     }
 
     private void createCustomerProductsMap(CustomerProduct customerProduct) {
         customerProducts.put(customerProduct.getProduct().getId(), customerProduct);
     }
 
-    private void createComparedRecipesSet(Recipe recipe) {
+    private void addComparedRecipeToSet(Recipe recipe) {
         comparedRecipes.add(new ComparedRecipe(recipe));
     }
 
     public PriorityQueue<ComparedRecipe> sortRecipes() {
-        comparedRecipes.stream().forEach(comparedRecipe -> setMissingProductsAndOldestDate(comparedRecipe, customerProducts));
+        comparedRecipes.forEach(comparedRecipe -> setMissingProductsAndOldestDate(comparedRecipe, customerProducts));
         PriorityQueue<ComparedRecipe> priorityQueue = new PriorityQueue<>(new RecipeComparator());
-        comparedRecipes.stream().forEach(comparedRecipe -> priorityQueue.add(comparedRecipe));
+        priorityQueue.addAll(comparedRecipes);
         return priorityQueue;
     }
 
-    public void setMissingProductsAndOldestDate(ComparedRecipe comparedRecipe, Map<Long, CustomerProduct> products) {
+    private void setMissingProductsAndOldestDate(ComparedRecipe comparedRecipe, Map<Long, CustomerProduct> products) {
         comparedRecipe.getRecipe().getIngredients().forEach(recipeIngredient -> {
             if (!(products.containsKey(recipeIngredient.getProduct().getId()) &&
                 recipeIngredient.getAmount() <= products.get(recipeIngredient.getProduct().getId()).getAmount())) {
