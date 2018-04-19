@@ -52,11 +52,13 @@ const app = new Vue({
               <button v-on:click="addProduct(product)" class="btn btn-default"> Add this product to your fridge</button>
               Amount you want to add: <input v-model = "product.amount"/> {{product.baseAmount}} {{product.baseUnit}}
         </li>
-        
+        <br>
+        <h2>My products</h2>
         <button v-on:click="showMyProducts(1)" class="btn btn-default"> Show My Products</button>
           <li v-for="product, i in myProducts">
               {{product.product.name}} Amount: {{product.amount}} {{product.product.baseUnit}}
           </li>
+          <br>
         </div>
     `,
 });
