@@ -1,7 +1,6 @@
 package foodambulance.dao;
 
 import foodambulance.model.Recipe;
-import foodambulance.model.Recipe;
 import foodambulance.model.RecipeIngredient;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,7 +41,9 @@ public class RecipeDAOImpl implements RecipeDAO{
     @Override
     public Recipe getRecipeOfId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.get(Recipe.class, id);
+        Recipe recipe =  session.get(Recipe.class, id);
+        recipe.getCustomers().size();
+        return recipe;
     }
 
     @Override

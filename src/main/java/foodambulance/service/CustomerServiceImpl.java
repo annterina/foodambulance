@@ -99,7 +99,7 @@ public class CustomerServiceImpl implements CustomerService {
                     .collect(Collectors.toMap(strippedRecipe.getRecipeIngredientsIds()::get,
                             strippedRecipe.getRecipeIngredientsAmount()::get));
             Recipe recipe = new Recipe();
-            recipe.setCustomer(customer);
+            recipe.addCustomer(customer);
             recipe.setName(strippedRecipe.getName());
             List<Long> recipeIngredientsIds = strippedRecipe.getRecipeIngredientsIds();
             Set<RecipeIngredient> recipeIngredients = new HashSet<>();
@@ -126,7 +126,7 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean addPublicRecipeToCustomerOfId(Long customerId, Long recipeId) {
         Customer customer = customerDAO.getCustomerOfId(customerId);
         Recipe recipe = recipeDAO.getRecipeOfId(recipeId);
-        recipe.setCustomer(customer);
+        recipe.addCustomer(customer);
         customerDAO.save(customer);
         recipeDAO.save(recipe);
         return true;

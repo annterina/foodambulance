@@ -44,7 +44,9 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public Customer getCustomerOfId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.get(Customer.class, id);
+        Customer customer = session.get(Customer.class, id);
+        customer.getCustomerProducts().size();
+        return customer;
     }
 
     @Override

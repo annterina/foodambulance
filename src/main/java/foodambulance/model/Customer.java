@@ -2,6 +2,8 @@ package foodambulance.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -28,8 +30,7 @@ public class Customer {
     @JsonBackReference
     private Set<CustomerProduct> customerProducts = new HashSet<>();
 
-    @OneToMany(mappedBy = "customer")
-    @JsonBackReference(value = "customer-recipe")
+    @ManyToMany(mappedBy = "customers", fetch = FetchType.EAGER)
     private Set<Recipe> recipes = new HashSet<>();
 
     public Long getId() {

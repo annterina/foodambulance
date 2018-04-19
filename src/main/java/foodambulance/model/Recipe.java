@@ -24,9 +24,14 @@ public class Recipe {
     @Column
     private String name;
 
-    @ManyToOne
-    @JsonManagedReference(value = "customer-recipe")
-    private Customer customer;
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "CUSTOMER_RECIPE",
+            joinColumns = { @JoinColumn(name = "recipe_id") },
+            inverseJoinColumns = { @JoinColumn(name = "customer_id") }
+    )
+    @JsonIgnore
+    private Set<Customer> customers;
 
     @Column(name = "PUBLIC")
     private boolean isPublic = true;
@@ -59,12 +64,12 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Set<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Set<Customer> customers) {
+        this.customers = customers;
     }
 
     public boolean isPublic() {
@@ -74,4 +79,6 @@ public class Recipe {
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
     }
+
+    public void addCustomer(Customer customer){this.customers.add(customer);}
 }
