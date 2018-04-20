@@ -32,22 +32,13 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import sun.net.www.http.HttpClient;
-
-import javax.persistence.EntityManager;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:dispatcher-servlet-test.xml")
@@ -92,11 +83,6 @@ public class AddingProductToFridge {
         HttpResponse response = httpClient.execute(request);
 
 
-        System.out.println(response.getStatusLine());
-        String responseString = EntityUtils.toString(response.getEntity());
-        System.out.println(responseString);
-
-
         //adding customer to database TODO
         Customer customer = new Customer();
         customer.setMail("ab@ab.com");
@@ -108,8 +94,6 @@ public class AddingProductToFridge {
         session.save(customer);
         session.flush();
         transaction.commit();
-        //session.close();
-        System.out.println("Customer id: " + customer.getId());
 
 
         //Retrieving all products
@@ -117,9 +101,7 @@ public class AddingProductToFridge {
         getRequest.addHeader("content-type", "application/json");
         HttpResponse getResponse = httpClient.execute(getRequest);
 
-        System.out.println(getResponse.getStatusLine());
         String getResponseString = EntityUtils.toString(getResponse.getEntity());
-        System.out.println(getResponseString);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new Hibernate5Module());
@@ -152,9 +134,6 @@ public class AddingProductToFridge {
         addRequest.addHeader("content-type", "application/json");
         addRequest.setEntity(addParams);
         HttpResponse addResponse = httpClient.execute(addRequest);
-
-        String addResponseString = EntityUtils.toString(addResponse.getEntity());
-        System.out.println("Response string: " + addResponseString);
 
         assertEquals(addResponse.getStatusLine().getStatusCode(), 200);
 
