@@ -45,7 +45,6 @@ public class CustomerDAOImpl implements CustomerDAO {
     public Customer getCustomerOfId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         Customer customer = session.get(Customer.class, id);
-        customer.getCustomerProducts().size();
         return customer;
     }
 
@@ -61,6 +60,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public CustomerProduct getCustomerProduct(Long customerId, Long productId) {
+        if (getCustomerOfId(customerId).getCustomerProducts()==null) return null;
         for (CustomerProduct customerProduct :
                 getCustomerOfId(customerId).getCustomerProducts()) {
             if (customerProduct.getProduct().getId().equals(productId)) return customerProduct;

@@ -29,7 +29,7 @@ public class CustomerDAOImplTest {
     @Test
     public void saveAndGetCustomerFromDatabase() {
         Customer customer = new Customer();
-        customer.setMail("a@a.com");
+        customer.setMail("ab@ab.com");
         customer.setPasswordHash("qwerty");
         Set<CustomerProduct> customerProducts = new HashSet<>();
         CustomerProduct product = new CustomerProduct();
