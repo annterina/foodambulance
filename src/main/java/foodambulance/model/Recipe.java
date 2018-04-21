@@ -2,6 +2,8 @@ package foodambulance.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -11,32 +13,38 @@ import java.util.Set;
 @Entity
 @Table(name = "RECIPE",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"ID"})})
+@JsonIgnoreProperties(value={ "ingredients"}, allowGetters=true)
 public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", updatable = false, nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column
     private String name;
 
-    @ManyToOne
-    @JsonManagedReference
-    private Customer customer;
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "CUSTOMER_RECIPE",
+            joinColumns = { @JoinColumn(name = "recipe_id") },
+            inverseJoinColumns = { @JoinColumn(name = "customer_id") }
+    )
+    @JsonIgnore
+    private Set<Customer> customers;
 
     @Column(name = "PUBLIC")
-    private boolean isPublic;
+    private boolean isPublic = true;
 
     @OneToMany(mappedBy = "recipe")
-    @JsonBackReference
+    @JsonBackReference(value = "recipe-recipeIngredient")
     private Set<RecipeIngredient> ingredients = new HashSet<>();
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,12 +64,12 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Set<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Set<Customer> customers) {
+        this.customers = customers;
     }
 
     public boolean isPublic() {
@@ -71,4 +79,6 @@ public class Recipe {
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
     }
+
+    public void addCustomer(Customer customer){this.customers.add(customer);}
 }

@@ -1,6 +1,8 @@
 package foodambulance.dao;
 
 import foodambulance.model.Customer;
+import foodambulance.model.CustomerProduct;
+import foodambulance.model.Recipe;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,8 +28,43 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer getCustomerOfId(Integer id) {
+    public boolean saveCustomerProduct(CustomerProduct customerProduct) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.get(Customer.class, id);
+        session.persist(customerProduct);
+        return true;
+    }
+
+    @Override
+    public boolean saveRecipe(Recipe recipe) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.persist(recipe);
+        return true;
+    }
+
+    @Override
+    public Customer getCustomerOfId(Long id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Customer customer = session.get(Customer.class, id);
+        return customer;
+    }
+
+    @Override
+    public boolean changeCustomerProductAmount(CustomerProduct customerProduct, Float amount) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Float newAmount = customerProduct.getAmount() + amount;
+        session.evict(customerProduct);
+        customerProduct.setAmount(newAmount);
+        session.update(customerProduct);
+        return true;
+    }
+
+    @Override
+    public CustomerProduct getCustomerProduct(Long customerId, Long productId) {
+        if (getCustomerOfId(customerId).getCustomerProducts()==null) return null;
+        for (CustomerProduct customerProduct :
+                getCustomerOfId(customerId).getCustomerProducts()) {
+            if (customerProduct.getProduct().getId().equals(productId)) return customerProduct;
+        }
+        return null;
     }
 }

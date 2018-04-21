@@ -6,17 +6,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "RECIPE_INGREDIENT",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"ID"}), @UniqueConstraint(columnNames = {"RECIPE_ID"}), @UniqueConstraint(columnNames = {"PRODUCT_ID"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"ID"})})
 public class RecipeIngredient {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "RECIPE_ID")
-    @JsonManagedReference
+    @JsonManagedReference(value = "recipe-recipeIngredient")
     private Recipe recipe;
 
     @ManyToOne
@@ -24,11 +24,14 @@ public class RecipeIngredient {
     @JsonManagedReference
     private Product product;
 
-    public int getId() {
+    @Column
+    private Float amount;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,4 +50,13 @@ public class RecipeIngredient {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
+
 }

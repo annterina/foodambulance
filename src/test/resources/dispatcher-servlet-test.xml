@@ -10,26 +10,25 @@
     	http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+
 	<!-- Add support for component scanning -->
 	<context:component-scan base-package="foodambulance"/>
 
 	<!-- Add support for conversion, formatting and validation support -->
-    <mvc:annotation-driven/>
+	<mvc:annotation-driven/>
 
-
-	<mvc:resources mapping="/resources/**" location="resources/" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-				destroy-method="close">
+		  destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url"
-						value="jdbc:postgresql://horton.elephantsql.com:5432/mwpwvxvu" />
+				  value="jdbc:postgresql://horton.elephantsql.com:5432/mwpwvxvu" />
 		<property name="username" value="mwpwvxvu" />
 		<property name="password" value="J4PP_kgFvx7q2rdDugJs3MJ3lSXpVY96" />
 	</bean>
 
 	<bean id="hibernate4AnnotatedSessionFactory"
-				class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
@@ -38,14 +37,14 @@
 				<value>foodambulance.model.CustomerProduct</value>
 				<value>foodambulance.model.Recipe</value>
 				<value>foodambulance.model.RecipeIngredient</value>
-            </list>
+			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-            </props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
 		</property>
 	</bean>
 
@@ -57,9 +56,9 @@
 		<constructor-arg ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 
-    <bean id="recipeDAO" class="foodambulance.dao.RecipeDAOImpl">
-        <constructor-arg ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
+	<bean id="recipeDAO" class="foodambulance.dao.RecipeDAOImpl">
+		<constructor-arg ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
 
 	<bean id="customerService" class="foodambulance.service.CustomerServiceImpl">
 		<constructor-arg ref="customerDAO"/>
@@ -77,11 +76,12 @@
 		<constructor-arg ref="productService"/>
 	</bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
 
 </beans>
 

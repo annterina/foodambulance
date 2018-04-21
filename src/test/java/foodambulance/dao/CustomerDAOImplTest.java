@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -16,8 +17,9 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:dispatcher-servlet.xml")
+@ContextConfiguration(locations = "classpath:dispatcher-servlet-test.xml")
 @Transactional
 public class CustomerDAOImplTest {
 
@@ -27,14 +29,14 @@ public class CustomerDAOImplTest {
     @Test
     public void saveAndGetCustomerFromDatabase() {
         Customer customer = new Customer();
-        customer.setMail("a@a.com");
+        customer.setMail("ab@ab.com");
         customer.setPasswordHash("qwerty");
         Set<CustomerProduct> customerProducts = new HashSet<>();
         CustomerProduct product = new CustomerProduct();
-        product.setId(1);
+        product.setId(1L);
         product.setCustomer(customer);
         product.setAmount(2f);
-        product.setOldestDate(LocalDateTime.now());
+        product.setNewestBuyDate(LocalDateTime.now());
         customer.setCustomerProducts(customerProducts);
         customerDAO.save(customer);
         Customer databaseCustomer = customerDAO.getCustomerOfId(customer.getId());
