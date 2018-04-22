@@ -38,6 +38,7 @@
 				<value>foodambulance.model.CustomerProduct</value>
 				<value>foodambulance.model.Recipe</value>
 				<value>foodambulance.model.RecipeIngredient</value>
+				<value>foodambulance.model.DayPlan</value>
             </list>
 		</property>
 		<property name="hibernateProperties">

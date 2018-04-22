@@ -40,6 +40,10 @@ public class Recipe {
     @JsonBackReference(value = "recipe-recipeIngredient")
     private Set<RecipeIngredient> ingredients = new HashSet<>();
 
+    @ManyToMany(mappedBy = "recipes")
+    @JsonIgnore
+    private Set<DayPlan> dayPlans;
+
     public Long getId() {
         return id;
     }
@@ -81,4 +85,12 @@ public class Recipe {
     }
 
     public void addCustomer(Customer customer){this.customers.add(customer);}
+
+    public Set<DayPlan> getDayPlans() {
+        return dayPlans;
+    }
+
+    public void setDayPlans(Set<DayPlan> dayPlans) {
+        this.dayPlans = dayPlans;
+    }
 }

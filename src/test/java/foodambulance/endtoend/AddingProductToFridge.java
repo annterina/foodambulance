@@ -142,7 +142,7 @@ public class AddingProductToFridge {
         String hql = "FROM CustomerProduct E WHERE E.product =" + productId;
         Query query = session.createQuery(hql);
 
-        List<CustomerProduct> results = query.list();
+        List<CustomerProduct> results = query.getResultList();
         customerProductId = results.get(0).getId().intValue();
         assertNotEquals(customerProductId, -1);
 

@@ -127,6 +127,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerDAO.getCustomerOfId(customerId);
         Recipe recipe = recipeDAO.getRecipeOfId(recipeId);
         recipe.addCustomer(customer);
+        customer.addRecipe(recipe);
         customerDAO.save(customer);
         recipeDAO.save(recipe);
         return true;
@@ -142,5 +143,20 @@ public class CustomerServiceImpl implements CustomerService {
         RecipePrioritizer recipePrioritizer = new RecipePrioritizer(customerProducts, customerRecipes);
         List<ComparedRecipe> comparedRecipes = new LinkedList<>(recipePrioritizer.sortRecipes());
         return comparedRecipes;
+    }
+
+    @Override
+    @Transactional
+    public boolean addRecipeToDayPlan(Long customerId, Long recipeId, Date date){
+        Customer customer = customerDAO.getCustomerOfId(customerId);
+        Recipe recipe = recipeDAO.getRecipeOfId(recipeId);
+        DayPlan dayPlan = new DayPlan();
+        dayPlan.setDate(date);
+        dayPlan.setCustomer(customer);
+        dayPlan.getRecipes().add(recipe);
+        customer.getDayPlans().add(dayPlan);
+        customerDAO.save(customer);
+        recipeDAO.save(recipe);
+        return true;
     }
 }

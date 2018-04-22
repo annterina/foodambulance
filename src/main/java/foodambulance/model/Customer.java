@@ -33,6 +33,10 @@ public class Customer {
     @ManyToMany(mappedBy = "customers", fetch = FetchType.EAGER)
     private Set<Recipe> recipes = new HashSet<>();
 
+    @OneToMany(mappedBy = "customer")
+    @JsonBackReference
+    private Set<DayPlan> dayPlans;
+
     public Long getId() {
         return id;
     }
@@ -71,5 +75,17 @@ public class Customer {
 
     public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
+    }
+
+    public void addRecipe(Recipe recipe){
+        this.recipes.add(recipe);
+    }
+
+    public Set<DayPlan> getDayPlans() {
+        return dayPlans;
+    }
+
+    public void setDayPlans(Set<DayPlan> dayPlans) {
+        this.dayPlans = dayPlans;
     }
 }

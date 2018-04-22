@@ -3,7 +3,9 @@ package foodambulance.service;
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.Recipe;
 import foodambulance.prioritizer.ComparedRecipe;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,4 +22,6 @@ public interface CustomerService {
     List<ComparedRecipe> getPossibleRecipesOfCustomerOfId(Long id);
 
     boolean addPublicRecipeToCustomerOfId(Long customerId, Long recipeId);
+
+    boolean addRecipeToDayPlan(Long customerId, Long recipeId, Date date);
 }
