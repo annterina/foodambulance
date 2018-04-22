@@ -2,33 +2,47 @@ const planner = new Vue({
     el: "#planner",
     data: {
         error: "",
-        comparedRecipes: [{recipe:{name:""}, missingProducts:[], missingProductsNumber: 0}],
-        recipe: {missingProducts:[]},
-        dragging: false
+        comparedRecipes: [],
+        plannedRecipes: [],
     },
     methods: {
-        showSortedRecipes(customerId){
-            fetch("http://localhost:8080/customer/" + customerId + "/products/plan")
-                .then(response => response.json())
-                .then((data) => {
-                    this.comparedRecipes = data;
-                })
-        },
+        addComparedRecipes() {
+            this.comparedRecipes = [{recipe:{name:"Naleśniki"}},
+                {recipe:{name:"Jajecznica"}}];
+        }
     },
     beforeMount(){
-        this.showSortedRecipes(1);
+        this.addComparedRecipes();
     },
     mounted() {
     },
     template: `
         <div>
-            <div class="container">
-                <draggable v-model="comparedRecipes" @start="dragging=true" @end="dragging=false">
-                   <div  v-for="recipe in comparedRecipes" :key="recipe.recipe.id">
-                   {{recipe.recipe.name}}
-                   </div>
+          <div class="drag">
+            <h2>List 1 Draggable</h2>
+            <draggable v-model="comparedRecipes" class="dragArea" :options="{group:'people'}">
+              <div v-for="element in comparedRecipes">{{element.recipe.name}}</div>
+            </draggable>
+          </div>
+          <div>
+            <b-card-group deck>
+              <b-card title="Monday" style="max-width: 20rem;" class="mb-2">
+                <draggable v-model="plannedRecipes" class="dragArea" :options="{group:'people'}">
+                  <div v-for="element in plannedRecipes">{{element.recipe.name}}</div>
                 </draggable>
+              </b-card>
+              <b-card title="Tuesday" style="max-width: 20rem;" class="mb-2">
+                <draggable v-model="plannedRecipes" class="dragArea" :options="{group:'people'}">
+                  <div v-for="element in plannedRecipes">{{element.recipe.name}}</div>
+                </draggable>
+              </b-card>
+              <b-card title="Wednesday" style="max-width: 20rem;" class="mb-2">
+                <draggable v-model="plannedRecipes" class="dragArea" :options="{group:'people'}">
+                  <div v-for="element in plannedRecipes">{{element.recipe.name}}</div>
+                </draggable>
+              </b-card>
             </div>
+          </b-card-group>
         </div>
     `,
 });
