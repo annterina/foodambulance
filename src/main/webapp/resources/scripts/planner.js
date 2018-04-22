@@ -1,14 +1,10 @@
-import draggable from 'vuedraggable';
-
 const planner = new Vue({
     el: "#planner",
     data: {
         error: "",
         comparedRecipes: [{recipe:{name:""}, missingProducts:[], missingProductsNumber: 0}],
         recipe: {missingProducts:[]},
-        components: {
-            draggable
-        }
+        dragging: false
     },
     methods: {
         showSortedRecipes(customerId){
@@ -27,13 +23,10 @@ const planner = new Vue({
     template: `
         <div>
             <div class="container">
-                <draggable v-model="comparedRecipes">
-                    <ul>
-                        <li v-for="recipe in comparedRecipes">
-                           {{recipe.recipe.name}} : Missing {{recipe.missingProductsNumber}} products:
-                           <li v-for="product in recipe.missingProducts">{{product.product.name}}</li>
-                        </li>
-                    </ul>
+                <draggable v-model="comparedRecipes" @start="dragging=true" @end="dragging=false">
+                   <div  v-for="recipe in comparedRecipes" :key="recipe.recipe.id">
+                   {{recipe.recipe.name}}
+                   </div>
                 </draggable>
             </div>
         </div>
