@@ -6,6 +6,7 @@ import foodambulance.dao.CustomerDAO;
 import foodambulance.dao.ProductDAO;
 import foodambulance.dao.RecipeDAO;
 import foodambulance.deserialization.StrippedCustomerProduct;
+import foodambulance.deserialization.StrippedDayPlan;
 import foodambulance.deserialization.StrippedRecipe;
 import foodambulance.model.*;
 import foodambulance.prioritizer.ComparedRecipe;
@@ -147,16 +148,30 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public boolean addRecipeToDayPlan(Long customerId, Long recipeId, Date date){
-        Customer customer = customerDAO.getCustomerOfId(customerId);
-        Recipe recipe = recipeDAO.getRecipeOfId(recipeId);
-        DayPlan dayPlan = new DayPlan();
-        dayPlan.setDate(date);
-        dayPlan.setCustomer(customer);
-        dayPlan.getRecipes().add(recipe);
-        customer.getDayPlans().add(dayPlan);
-        customerDAO.save(customer);
-        recipeDAO.save(recipe);
-        return true;
+    public boolean addRecipeToDayPlan(String strippedDayPlanBody){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new Hibernate5Module());
+        try {
+            StrippedDayPlan strippedDayPlan = mapper.readValue(strippedDayPlanBody, StrippedDayPlan.class);
+            Customer customer = customerDAO.getCustomerOfId(strippedDayPlan.getCustomerId());
+            Recipe recipe = recipeDAO.getRecipeOfId(strippedDayPlan.getRecipeId());
+            System.out.println("Loaded customer and recipe");
+            DayPlan dayPlan = new DayPlan();
+            dayPlan.setDate(strippedDayPlan.getDate());
+            dayPlan.setCustomer(customer);
+            dayPlan.getRecipes().add(recipe);
+            customer.getDayPlans().add(dayPlan);
+            System.out.println("Saving...");
+            customerDAO.saveDayPlan(dayPlan);
+            customerDAO.save(customer);
+            recipeDAO.save(recipe);
+            System.out.println("Saved");
+            return true;
+        } catch (Exception e) {
+            LOGGER.error("Error during adding product");
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }

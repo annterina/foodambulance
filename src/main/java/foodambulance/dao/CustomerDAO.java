@@ -2,11 +2,14 @@ package foodambulance.dao;
 
 import foodambulance.model.Customer;
 import foodambulance.model.CustomerProduct;
+import foodambulance.model.DayPlan;
 import foodambulance.model.Recipe;
 
 public interface CustomerDAO {
 
     boolean save(Customer customer);
+
+    boolean saveDayPlan(DayPlan dayPlan);
 
     Customer getCustomerOfId(Long id);
 

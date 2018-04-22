@@ -1,5 +1,6 @@
 package foodambulance.service;
 
+import foodambulance.deserialization.StrippedDayPlan;
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.Recipe;
 import foodambulance.prioritizer.ComparedRecipe;
@@ -23,5 +24,5 @@ public interface CustomerService {
 
     boolean addPublicRecipeToCustomerOfId(Long customerId, Long recipeId);
 
-    boolean addRecipeToDayPlan(Long customerId, Long recipeId, Date date);
+    boolean addRecipeToDayPlan(String strippedDayPlanBody);
 }

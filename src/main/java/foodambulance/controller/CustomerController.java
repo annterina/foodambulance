@@ -84,7 +84,7 @@ public class CustomerController {
         else response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 
-    @RequestMapping(value = "/customer/{id}/products/plan", method = RequestMethod.GET,
+    @RequestMapping(value = "/customer/{id}/plan", method = RequestMethod.GET,
             produces = "application/json; charset=UTF-8")
     @ResponseBody
     @CrossOrigin
@@ -93,6 +93,21 @@ public class CustomerController {
         try {
             response.setStatus(HttpServletResponse.SC_OK);
             return new ObjectMapper().writeValueAsString(customerService.getPossibleRecipesOfCustomerOfId(new Long(id)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "Json processing error.";
+        }
+    }
+
+    @RequestMapping(value = "/customer/{customerId}/plan",method = RequestMethod.PUT)
+    @CrossOrigin
+    public String addRecipeToDayPlan(@RequestBody String productBody, @PathVariable String customerId,
+                                              HttpServletResponse response) {
+        response.setCharacterEncoding("utf-8");
+        try {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return new ObjectMapper().writeValueAsString(customerService.addRecipeToDayPlan(productBody));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

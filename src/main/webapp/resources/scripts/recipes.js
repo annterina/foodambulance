@@ -24,7 +24,7 @@ const recipes = new Vue({
                 })
         },
         showSortedRecipes(customerId){
-            fetch("http://localhost:8080/customer/" + this.customerId + "/products/plan")
+            fetch("http://localhost:8080/customer/" + this.customerId + "/plan")
                 .then(response => response.json())
                 .then((data) => {
                     this.comparedRecipes = data;

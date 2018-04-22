@@ -2,6 +2,7 @@ package foodambulance.dao;
 
 import foodambulance.model.Customer;
 import foodambulance.model.CustomerProduct;
+import foodambulance.model.DayPlan;
 import foodambulance.model.Recipe;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -38,6 +39,13 @@ public class CustomerDAOImpl implements CustomerDAO {
     public boolean saveRecipe(Recipe recipe) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(recipe);
+        return true;
+    }
+
+    @Override
+    public boolean saveDayPlan(DayPlan dayPlan){
+        Session session = this.sessionFactory.getCurrentSession();
+        session.persist(dayPlan);
         return true;
     }
 
