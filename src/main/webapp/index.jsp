@@ -30,6 +30,9 @@
           <a class="nav-link" href="resources/recipes.html">Recipes</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="resources/planner.html">Planner</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="resources/admin.html">Admin Console</a>
         </li>
         <li class="nav-item dropdown">
@@ -53,7 +56,6 @@
   <div class="container">
       <div id="app"></div>
   </div>
-
 
   <script src="resources/scripts/vue.js"></script>
   <script src="resources/scripts/app.js"></script>
