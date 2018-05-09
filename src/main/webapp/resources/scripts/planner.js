@@ -16,7 +16,7 @@ const planner = new Vue({
     },
     methods: {
         addComparedRecipes() {
-            fetch("http://localhost:8080/customer/" + 1 + "/products/plan")
+            fetch("http://localhost:8080/customer/" + 1 + "/plan")
                 .then(response => response.json())
                 .then((data) => {
                     this.comparedRecipes = data;
@@ -32,7 +32,7 @@ const planner = new Vue({
         sendPlannedRecipe() {
             this.customerId = 1;
             if (this.plannedRecipe.customerId > -1 && this.plannedRecipe.recipeId > -1) {
-                fetch("http://localhost:8080/customer/" + 1 + "products/plan", {
+                fetch("http://localhost:8080/customer/" + 1 + "/plan", {
                     body: JSON.stringify(this.plannedRecipe),
                     method: "PUT",
                     headers: {
