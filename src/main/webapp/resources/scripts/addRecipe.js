@@ -47,17 +47,18 @@ const addRecipe = new Vue({
     template: `
     <div>
             <div class="container">
-            <h2>Adding new recipe</h2>
+            <br>
+            <h4>Adding new recipe</h4>
                 <div class="row">
                      <div class="span6 offset3">
                         Name :<input v-model = "recipeName"/>
-                        <h3>Choose products:</h3>
+                        <h5>Choose products:</h5>
                         <ul class="list-group">
                             <li class="list-group-item" v-for="(product, i) in products">
                                   {{product.name}} : <input v-model = "recipeIngredients[i].amount"/> {{product.baseUnit}}
                             </li>
                         </ul>
-                        <button v-on:click="addRecipe()" class="btn btn-default"> Add recipe</button>
+                        <button v-on:click="addRecipe()" class="btn btn-info"> Add recipe</button>
                     </div>
                  </div>
             </div>

@@ -47,7 +47,7 @@ const recipes = new Vue({
     template: `
         <div>
         <br>
-        <h2>All recipes</h2>
+        <h4>All recipes</h4>
         <ul class="list-group">
         <li class="list-group-item" v-for="recipe in recipeList">
               {{recipe.name}}
@@ -60,7 +60,7 @@ const recipes = new Vue({
         <br>
         <button v-on:click="showAllRecipes()" class="btn btn-info"> Show All Recipes </button> <br/>
         <br>
-        <h2>My recipes</h2>
+        <h4>My recipes</h4>
           <ul class="list-group">
           <li class="list-group-item" v-for="recipe in myRecipes">
               {{recipe.name}}
@@ -72,7 +72,7 @@ const recipes = new Vue({
           <br/>
           <button v-on:click="showMyRecipes(1)" class="btn btn-info"> Show My Recipes </button> <br/>
           <br>
-          <h2>Planner</h2>
+          <h4>Planner</h4>
           <ul class="list-group">
           <li class="list-group-item" v-for="recipe in comparedRecipes">
               {{recipe.recipe.name}} : Missing {{recipe.missingProductsNumber}} products
