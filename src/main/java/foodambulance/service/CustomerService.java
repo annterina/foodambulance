@@ -25,4 +25,6 @@ public interface CustomerService {
     boolean addPublicRecipeToCustomerOfId(Long customerId, Long recipeId);
 
     boolean addRecipeToDayPlan(String strippedDayPlanBody);
+
+    boolean deleteRecipeFromDayPlan(String strippedDayPlanBody);
 }

@@ -4,12 +4,16 @@ import foodambulance.model.Customer;
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.DayPlan;
 import foodambulance.model.Recipe;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import org.hibernate.query.Query;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -45,7 +49,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public boolean saveDayPlan(DayPlan dayPlan){
         Session session = this.sessionFactory.getCurrentSession();
-        session.persist(dayPlan);
+        session.saveOrUpdate(dayPlan);
         return true;
     }
 
@@ -76,4 +80,23 @@ public class CustomerDAOImpl implements CustomerDAO {
         return null;
     }
 
+    @Override
+    public DayPlan getDayPlanOfCustomerAndDate(Long customerId, Date date) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from DayPlan");
+        List<DayPlan> result = query.getResultList();
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date);
+        for (DayPlan dayPlan : result) {
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTime(dayPlan.getDate());
+            if (cal1.get(Calendar.DAY_OF_MONTH)==cal2.get(Calendar.DAY_OF_MONTH) &&
+                    cal1.get(Calendar.MONTH)==cal2.get(Calendar.MONTH) &&
+                    cal1.get(Calendar.YEAR)==cal2.get(Calendar.YEAR) &&
+                    dayPlan.getCustomer().getId().equals(customerId)) {
+                return dayPlan;
+            }
+        }
+        return null;
+    }
 }

@@ -156,11 +156,20 @@ public class CustomerServiceImpl implements CustomerService {
             Customer customer = customerDAO.getCustomerOfId(strippedDayPlan.getCustomerId());
             Recipe recipe = recipeDAO.getRecipeOfId(strippedDayPlan.getRecipeId());
             System.out.println("Loaded customer and recipe");
-            DayPlan dayPlan = new DayPlan();
-            dayPlan.setDate(strippedDayPlan.getDate());
-            dayPlan.setCustomer(customer);
+            DayPlan dayPlan = customerDAO.getDayPlanOfCustomerAndDate(customer.getId(), strippedDayPlan.getDate());
+            if (dayPlan==null) {
+                dayPlan = new DayPlan();
+                dayPlan.setDate(strippedDayPlan.getDate());
+                dayPlan.setCustomer(customer);
+                customer.getDayPlans().add(dayPlan);
+                System.out.println("Day plan not found");
+            }
             dayPlan.getRecipes().add(recipe);
-            customer.getDayPlans().add(dayPlan);
+            recipe.getIngredients().forEach(ingredient ->
+                customerDAO.changeCustomerProductAmount(
+                        customerDAO.getCustomerProduct(
+                                customer.getId(), ingredient.getProduct().getId()), -ingredient.getAmount())
+            );
             System.out.println("Saving...");
             customerDAO.saveDayPlan(dayPlan);
             customerDAO.save(customer);
@@ -172,6 +181,35 @@ public class CustomerServiceImpl implements CustomerService {
             e.printStackTrace();
             return false;
         }
+    }
 
+    @Override
+    @Transactional
+    public boolean deleteRecipeFromDayPlan(String strippedDayPlanBody){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new Hibernate5Module());
+        try {
+            StrippedDayPlan strippedDayPlan = mapper.readValue(strippedDayPlanBody, StrippedDayPlan.class);
+            Customer customer = customerDAO.getCustomerOfId(strippedDayPlan.getCustomerId());
+            Recipe recipe = recipeDAO.getRecipeOfId(strippedDayPlan.getRecipeId());
+            System.out.println("Loaded customer and recipe");
+            DayPlan dayPlan = customerDAO.getDayPlanOfCustomerAndDate(customer.getId(), strippedDayPlan.getDate());
+            dayPlan.getRecipes().remove(recipe);
+            recipe.getIngredients().forEach(ingredient ->
+                    customerDAO.changeCustomerProductAmount(
+                            customerDAO.getCustomerProduct(
+                                    customer.getId(), ingredient.getProduct().getId()), ingredient.getAmount())
+            );
+            System.out.println("Saving...");
+            customerDAO.saveDayPlan(dayPlan);
+            customerDAO.save(customer);
+            recipeDAO.save(recipe);
+            System.out.println("Saved");
+            return true;
+        } catch (Exception e) {
+            LOGGER.error("Error during adding product");
+            e.printStackTrace();
+            return false;
+        }
     }
 }

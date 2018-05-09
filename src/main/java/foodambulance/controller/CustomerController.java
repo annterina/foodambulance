@@ -114,4 +114,19 @@ public class CustomerController {
             return "Json processing error.";
         }
     }
+
+    @RequestMapping(value = "/customer/{customerId}/plan",method = RequestMethod.DELETE)
+    @CrossOrigin
+    public String removeRecipeFromDayPlan(@RequestBody String productBody, @PathVariable String customerId,
+                                     HttpServletResponse response) {
+        response.setCharacterEncoding("utf-8");
+        try {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return new ObjectMapper().writeValueAsString(customerService.deleteRecipeFromDayPlan(productBody));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "Json processing error.";
+        }
+    }
 }

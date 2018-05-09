@@ -5,6 +5,8 @@ import foodambulance.model.CustomerProduct;
 import foodambulance.model.DayPlan;
 import foodambulance.model.Recipe;
 
+import java.util.Date;
+
 public interface CustomerDAO {
 
     boolean save(Customer customer);
@@ -20,4 +22,6 @@ public interface CustomerDAO {
     boolean changeCustomerProductAmount(CustomerProduct customerProduct, Float amount);
 
     CustomerProduct getCustomerProduct(Long customerId, Long productId);
+
+    DayPlan getDayPlanOfCustomerAndDate(Long customerId, Date date);
 }
