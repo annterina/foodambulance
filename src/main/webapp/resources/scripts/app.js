@@ -44,21 +44,29 @@ const app = new Vue({
         this.showAvailableProducts()
     },
     template: `
-        <div>
+<div>
+<br/>
         <h2>All products</h2>
-        <li v-for="(product, i) in products">
-              Name : {{product.name}}
-              Category id : {{product.categoryId}}
-              <button v-on:click="addProduct(product)" class="btn btn-default"> Add this product to your fridge</button>
-              Amount you want to add: <input v-model = "product.amount"/> {{product.baseAmount}} {{product.baseUnit}}
-        </li>
+        <div class="container">
+        <div class="list-inline">
+        <div class="list-inline-item col-md-4" v-for="(product, i) in products">
+              <h5>{{product.name}}</h5>
+              Amount to add: <input v-model = "product.amount"/> {{product.baseAmount}} {{product.baseUnit}}
+              <br/>
+              <button v-on:click="addProduct(product)" class="btn btn-info "> Add to fridge</button>
+        </div>
+        </div>
+        </div>
         <br>
         <h2>My products</h2>
-        <button v-on:click="showMyProducts(1)" class="btn btn-default"> Show My Products</button>
-          <li v-for="product, i in myProducts">
-              {{product.product.name}} Amount: {{product.amount}} {{product.product.baseUnit}}
-          </li>
-          <br>
-        </div>
+        <div class="list-inline">
+          <div class="list-inline-item col-md-4" v-for="product, i in myProducts">
+              <h5>{{product.product.name}}</h5> Amount: {{product.amount}} {{product.product.baseUnit}}
+          </div>
+         </div>
+         <br>
+         <button v-on:click="showMyProducts(1)" class="btn btn-info"> Show My Products</button>
+        <br/>
+    </div>
     `,
 });

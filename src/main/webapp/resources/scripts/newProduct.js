@@ -33,6 +33,7 @@ const newProduct = new Vue({
             <h2>Adding new product: </h2> <br/>
                 <div class="row">
                      <div class="span6 offset3">
+                     <div class="form-group">
                     Name: <input v-model="newProduct.name" required/> <br/>
                     Category Id: <input v-model="newProduct.categoryId" required/> <br/>
                     Base Unit: <input v-model="newProduct.baseUnit" required/> <br/>
@@ -41,6 +42,7 @@ const newProduct = new Vue({
                     <button v-on:click="addProduct()" class="btn btn-default"> Add product</button>
                     {{error}}
                     <br/>
+                    </div>
                     </div>
                 </div>
             </div>

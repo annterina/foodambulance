@@ -52,9 +52,11 @@ const addRecipe = new Vue({
                      <div class="span6 offset3">
                         Name :<input v-model = "recipeName"/>
                         <h3>Choose products:</h3>
-                        <li v-for="(product, i) in products">
-                              {{product.name}} : <input v-model = "recipeIngredients[i].amount"/> {{product.baseUnit}}
-                        </li>
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="(product, i) in products">
+                                  {{product.name}} : <input v-model = "recipeIngredients[i].amount"/> {{product.baseUnit}}
+                            </li>
+                        </ul>
                         <button v-on:click="addRecipe()" class="btn btn-default"> Add recipe</button>
                     </div>
                  </div>
