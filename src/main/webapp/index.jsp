@@ -10,8 +10,6 @@
   <head>
     <title>Food ambulance</title>
     <link rel="stylesheet" href="resources/css/bootstrap.min.css">
-    <script src="resources/js/jquery-3.3.1.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -35,17 +33,6 @@
         <li class="nav-item">
           <a class="nav-link" href="resources/admin.html">Admin Console</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign In</button>
@@ -57,6 +44,8 @@
       <div id="app"></div>
   </div>
 
+  <script src="resources/js/jquery-3.3.1.min.js"></script>
+  <script src="resources/js/bootstrap.min.js"></script>
   <script src="resources/scripts/vue.js"></script>
   <script src="resources/scripts/app.js"></script>
   </body>
