@@ -1,5 +1,6 @@
 package foodambulance.service;
 
+import foodambulance.deserialization.RecipeD;
 import foodambulance.model.Recipe;
 import org.springframework.stereotype.Service;
 
@@ -10,5 +11,5 @@ public interface RecipeService {
     
     boolean addRecipe(String recipeBody);
 
-    List<Recipe> getRecipes();
+    List<RecipeD> getRecipes();
 }

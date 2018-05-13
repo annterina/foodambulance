@@ -1,6 +1,15 @@
+.background {
+    background-image: url("../images/background.jpg");
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
 .container {
-    margin-top: 30px;
-    margin-left: 30px;
+    margin-top: 40px;
 }
 
 .registerArea {
@@ -34,11 +43,16 @@
     margin: 30px 20px 30px 30px;
 }
 
-.footer {
+#plannerFooter {
     position: fixed;
     height: 200px;
     bottom: 40px;
     right: 40px;
+}
+
+#showMyRecipesButton {
+    margin: 15px;
+
 }
 
 

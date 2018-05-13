@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import foodambulance.dao.ProductDAO;
 import foodambulance.dao.RecipeDAO;
+import foodambulance.deserialization.RecipeD;
 import foodambulance.deserialization.StrippedRecipe;
 import foodambulance.model.Customer;
 import foodambulance.model.Recipe;
@@ -69,7 +70,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public List<Recipe> getRecipes() {
-        return recipeDAO.getRecipes();
+    public List<RecipeD> getRecipes() {
+        List<Recipe> recipes = recipeDAO.getRecipes();
+        return recipes.stream().map(RecipeD::new).collect(Collectors.toList());
     }
 }
