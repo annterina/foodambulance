@@ -129,4 +129,20 @@ public class CustomerController {
             return "Json processing error.";
         }
     }
+
+    @RequestMapping(value = "/customer/{id}/grocery", method = RequestMethod.GET,
+            produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    @CrossOrigin
+    public String getGroceryListOfCustomerOfId(@PathVariable String id, HttpServletResponse response) {
+        response.setCharacterEncoding("utf-8");
+        try {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return new ObjectMapper().writeValueAsString(customerService.getGroceryListOfCustomerOfId(new Long(id)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "Json processing error.";
+        }
+    }
 }

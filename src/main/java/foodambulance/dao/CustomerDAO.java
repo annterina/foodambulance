@@ -6,6 +6,7 @@ import foodambulance.model.DayPlan;
 import foodambulance.model.Recipe;
 
 import java.util.Date;
+import java.util.Set;
 
 public interface CustomerDAO {
 
@@ -24,4 +25,6 @@ public interface CustomerDAO {
     CustomerProduct getCustomerProduct(Long customerId, Long productId);
 
     DayPlan getDayPlanOfCustomerAndDate(Long customerId, Date date);
+
+    Set<CustomerProduct> getCustomerProducts(Long id);
 }
