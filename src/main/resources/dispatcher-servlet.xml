@@ -23,9 +23,13 @@
 				destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url"
-						value="jdbc:postgresql://horton.elephantsql.com:5432/mwpwvxvu" />
-		<property name="username" value="mwpwvxvu" />
-		<property name="password" value="J4PP_kgFvx7q2rdDugJs3MJ3lSXpVY96" />
+						value="jdbc:postgresql://localhost:5432/foodambulance" />
+		<property name="username" value="kenjik" />
+		<property name="password" value="postgres" />
+		<!--<property name="url"-->
+		<!--value="jdbc:postgresql://horton.elephantsql.com:5432/mwpwvxvu" />-->
+		<!--<property name="username" value="mwpwvxvu" />-->
+		<!--<property name="password" value="J4PP_kgFvx7q2rdDugJs3MJ3lSXpVY96" />-->
 	</bean>
 
 	<bean id="hibernate4AnnotatedSessionFactory"
@@ -62,6 +66,10 @@
         <constructor-arg ref="hibernate4AnnotatedSessionFactory" />
     </bean>
 
+	<bean id="registrationDAO" class="foodambulance.dao.RegistrationDAOImpl">
+		<constructor-arg ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
 	<bean id="customerService" class="foodambulance.service.CustomerServiceImpl">
 		<constructor-arg ref="customerDAO"/>
 	</bean>
@@ -74,6 +82,10 @@
 		<constructor-arg ref="productDAO"/>
 	</bean>
 
+	<bean id="registrationService" class="foodambulance.service.RegistrationServiceImpl">
+		<constructor-arg ref="registrationDAO"/>
+	</bean>
+
 	<bean id="productController" class="foodambulance.controller.ProductController">
 		<constructor-arg ref="productService"/>
 	</bean>
@@ -83,6 +95,11 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </bean>
+
+	<bean class = "org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name = "prefix" value = "/WEB-INF/jsp/" />
+		<property name = "suffix" value = ".jsp" />
+	</bean>
 
 </beans>
 

@@ -2,6 +2,7 @@ package foodambulance.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -12,7 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name = "CUSTOMER",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"ID"})})
-@JsonIgnoreProperties(value={ "customerProducts", "recipes" }, allowGetters=true)
+@JsonIgnoreProperties(value={ "customerProducts", "recipes", "dayPlans"}, allowGetters=true, ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer {
 
     @Id
@@ -27,7 +29,7 @@ public class Customer {
     private String passwordHash;
 
     @OneToMany(mappedBy = "customer")
-    @JsonBackReference
+    @JsonBackReference(value = "customer-product")
     private Set<CustomerProduct> customerProducts = new HashSet<>();
 
     @ManyToMany(mappedBy = "customers", fetch = FetchType.EAGER)
