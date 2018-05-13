@@ -1,6 +1,7 @@
 const planner = new Vue({
     el: "#planner",
     data: {
+        customerId : -1,
         error: "",
         comparedRecipes: [],
         plannedRecipes0: [],
@@ -10,13 +11,13 @@ const planner = new Vue({
         plannedRecipes4: [],
         plannedRecipes5: [],
         plannedRecipes6: [],
-        plannedRecipe: {date: "", customerId: 1, recipeId:-1},
+        plannedRecipe: {date: "", customerId: -1, recipeId:-1},
         weekDays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         renderedCards: {zero: true, one: true, two: true, three: true, four: true, five: true, six: true}
     },
     methods: {
         addComparedRecipes() {
-            fetch("http://localhost:8080/customer/" + 1 + "/plan")
+            fetch("http://localhost:8080/customer/" + this.customerId + "/plan")
                 .then(response => response.json())
                 .then((data) => {
                     this.comparedRecipes = data;
@@ -30,9 +31,8 @@ const planner = new Vue({
             this.sendPlannedRecipe();
         },
         sendPlannedRecipe() {
-            this.customerId = 1;
             if (this.plannedRecipe.customerId > -1 && this.plannedRecipe.recipeId > -1) {
-                fetch("http://localhost:8080/customer/" + 1 + "/plan", {
+                fetch("http://localhost:8080/customer/" + this.customerId + "/plan", {
                     body: JSON.stringify(this.plannedRecipe),
                     method: "PUT",
                     headers: {
@@ -50,6 +50,8 @@ const planner = new Vue({
         }
     },
     beforeMount(){
+        this.customerId = Cookies.get("customerId");
+        this.plannedRecipe.customerId = this.customerId;
         this.addComparedRecipes();
     },
     mounted() {

@@ -1,5 +1,5 @@
-const register = new Vue({
-    el: "#register",
+const login = new Vue({
+    el: "#login",
     data: {
         form: {
             mail: '',
@@ -10,20 +10,21 @@ const register = new Vue({
     methods: {
         onSubmit (evt) {
             evt.preventDefault();
-            fetch("http://localhost:8080/register", {
+            fetch("http://localhost:8080/login", {
                 body: JSON.stringify(this.form),
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
             })
-                .then(response => response.json())
+                .then(response => {console.log(response); return response.json()})
                 .then((data) => {
                         if (data.status === "incorrectData"){
-                            alert("User mail already exists!");
+                            alert("Incorrect email and/or password!");
                         }
                         else {
-                            window.location.href = "http://localhost:8080/login";
+                            Cookies.set("customerId", data.customerId);
+                            window.location.href = "http://localhost:8080/index.jsp";
                         }
             })
         },
@@ -41,12 +42,12 @@ const register = new Vue({
     },
     template: `
         <div class="registerArea">
+            <h2>Please log in.</h2>
             <div class="col-6 offset-3">
                 <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                 <b-form-group id="emailGroup"
                             label="Email address:"
                             label-for="email"
-                            description="We'll never share your email with anyone else. Or we'll do. You will never know.">
                     <b-form-input id="email"
                               type="email"
                               v-model="form.mail"

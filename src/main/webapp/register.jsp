@@ -23,16 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="resources/recipes.html">Recipes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="resources/planner.html">Planner</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="resources/admin.html">Admin Console</a>
+                <a class="nav-link" href="login.jsp">Login <span class="sr-only">(current)</span></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

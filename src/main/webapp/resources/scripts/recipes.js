@@ -4,7 +4,7 @@ const recipes = new Vue({
         editFriend: null,
         recipeList: [],
         myRecipes: [],
-        customerId: 1,
+        customerId: -1,
         comparedRecipes: [{recipe:{name:""}, missingProducts:[], missingProductsNumber: 0}],
         recipe: {missingProducts:[]}
     },
@@ -42,7 +42,11 @@ const recipes = new Vue({
                 })
         }
     },
+    beforeMount(){
+        this.customerId = Cookies.get("customerId");
+    },
     mounted() {
+
     },
     template: `
         <div>

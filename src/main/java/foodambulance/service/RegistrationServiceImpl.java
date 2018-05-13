@@ -26,4 +26,10 @@ public class RegistrationServiceImpl implements RegistrationService {
     public Long registerCustomer(Customer customer) {
         return registrationDAO.registerCustomer(customer);
     }
+
+    @Override
+    @Transactional
+    public Long loginCustomer(Customer customer) {
+        return registrationDAO.loginCustomer(customer);
+    }
 }
