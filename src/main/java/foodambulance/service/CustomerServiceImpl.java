@@ -223,7 +223,8 @@ public class CustomerServiceImpl implements CustomerService {
                 .map(customerProduct ->
                     new Grocery()
                             .withName(customerProduct.getProduct().getName())
-                            .withAmount(calculateWantedAmount(customerProduct)))
+                            .withAmount(calculateWantedAmount(customerProduct))
+                            .withBaseUnit(customerProduct.getProduct().getBaseUnit()))
                 .collect(Collectors.toList());
     }
 

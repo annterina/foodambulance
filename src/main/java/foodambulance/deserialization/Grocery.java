@@ -6,6 +6,8 @@ public class Grocery {
 
     private Float amount;
 
+    private String baseUnit;
+
     public String getName() {
         return name;
     }
@@ -22,6 +24,14 @@ public class Grocery {
         this.amount = amount;
     }
 
+    public String getBaseUnit() {
+        return baseUnit;
+    }
+
+    public void setBaseUnit(String baseUnit) {
+        this.baseUnit = baseUnit;
+    }
+
     public Grocery withName(String name){
         this.name = name;
         return this;
@@ -29,6 +39,11 @@ public class Grocery {
 
     public Grocery withAmount(Float amount){
         this.amount = amount;
+        return this;
+    }
+
+    public Grocery withBaseUnit(String baseUnit){
+        this.baseUnit = baseUnit;
         return this;
     }
 
