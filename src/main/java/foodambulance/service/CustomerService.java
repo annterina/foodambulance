@@ -1,5 +1,6 @@
 package foodambulance.service;
 
+import foodambulance.deserialization.RecipeD;
 import foodambulance.deserialization.Grocery;
 import foodambulance.deserialization.StrippedDayPlan;
 import foodambulance.model.CustomerProduct;
@@ -15,7 +16,7 @@ public interface CustomerService {
 
     Set<CustomerProduct> getProductsOfCustomerOfId(Long id);
 
-    Set<Recipe> getRecipesOfCustomerOfId(Long id);
+    Set<RecipeD> getRecipesOfCustomerOfId(Long id);
 
     boolean addCustomerProductToCustomerOfId(Long id, String customerProductBody);
 

@@ -6,6 +6,7 @@ import foodambulance.dao.CustomerDAO;
 import foodambulance.dao.ProductDAO;
 import foodambulance.dao.RecipeDAO;
 import foodambulance.deserialization.Grocery;
+import foodambulance.deserialization.RecipeD;
 import foodambulance.deserialization.StrippedCustomerProduct;
 import foodambulance.deserialization.StrippedDayPlan;
 import foodambulance.deserialization.StrippedRecipe;
@@ -51,10 +52,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Set<Recipe> getRecipesOfCustomerOfId(Long id) {
+    public Set<RecipeD> getRecipesOfCustomerOfId(Long id) {
         Customer customer = customerDAO.getCustomerOfId(id);
         Hibernate.initialize(customer.getRecipes());
-        return customer.getRecipes();
+        Set<Recipe> recipes = customer.getRecipes();
+        return recipes.stream().map(RecipeD::new).collect(Collectors.toSet());
+
     }
 
     @Override

@@ -155,7 +155,7 @@ const planner = new Vue({
                             </draggable>
                         </b-card>
                     </b-card-group>
-                    <img class="footer" src="images/food_icon.png">
+                    <img id="plannerFooter" src="images/food_icon.png">
                 </div>
             </div>
         </div>
