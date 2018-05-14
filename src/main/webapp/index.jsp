@@ -47,6 +47,7 @@
   <script src="resources/js/jquery-3.3.1.min.js"></script>
   <script src="resources/js/bootstrap.min.js"></script>
   <script src="resources/scripts/vue.js"></script>
+  <script src="resources/js/js-cookie.js"></script>
   <script src="resources/scripts/app.js"></script>
   </body>
 </html>

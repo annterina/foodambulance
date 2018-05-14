@@ -10,6 +10,11 @@ const addRecipe = new Vue({
             if(this.recipeName !== ""){
                 var recipe = {};
                 recipe.name = this.recipeName;
+                console.log(Cookies.get("customerId"));
+                if (Cookies.get("customerId")!=="-1"){
+                    console.log("Setting customer id");
+                    recipe.customerId = Cookies.get("customerId");
+                }
                 recipe.recipeIngredientsIds = [];
                 recipe.recipeIngredientsAmount = [];
                 for (var i = 0; i < this.recipeIngredients.length; i++){
