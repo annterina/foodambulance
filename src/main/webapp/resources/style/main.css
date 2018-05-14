@@ -1,11 +1,6 @@
-.background {
-    background-image: url("../images/background.jpg");
-    opacity: 0.3;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+body {
+    background-image: url("../images/background.png");
+    background-size: 150% 100%;
 }
 
 .container {

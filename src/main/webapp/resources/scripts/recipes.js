@@ -1,11 +1,10 @@
 const recipes = new Vue({
     el: "#recipes",
     data: {
-        editFriend: null,
         recipeList: [],
         myRecipes: [],
         customerId: -1,
-        comparedRecipes: [{recipe:{name:""}, missingProducts:[], missingProductsNumber: 0}],
+        comparedRecipes: [],
         recipe: {missingProducts:[]}
     },
     methods: {
@@ -82,18 +81,26 @@ const recipes = new Vue({
             </div>
         </div>
         <br/>
-          <h4>Planner</h4>
-          <ul class="list-group">
-          <li class="list-group-item" v-for="recipe in comparedRecipes">
-              {{recipe.recipe.name}} : Missing {{recipe.missingProductsNumber}} products
-               <!--<li class="list-group-item" v-for="product in recipe.missingProducts">-->
-               <!--{{product.product.name}}-->
-               <!--</li>-->
-          </li>
-          </ul>
-          <br/>
-                    <button v-on:click="showSortedRecipes()" class="btn btn-info"> What can I cook?</button>
-          <br/>
+        <br/>
+        <div class="text-center">
+            <button v-on:click="showSortedRecipes()" class="btn btn-info btn-lg">What can I cook?</button>
+            <br/>
+            <br/>
+            <b-list-group class="col-8 offset-2">
+                <b-list-group-item class="d-flex justify-content-between align-items-center" 
+                    v-for="recipe in comparedRecipes">
+                    {{recipe.recipe.name}}
+                    <!--<li class="list-group-item" v-for="product in recipe.missingProducts">-->
+                    <!--{{product.product.name}}-->
+                    <!--</li>-->
+                    <b-btn variant="danger" data-toggle="tooltip" data-placement="right" title="missing products">
+                        {{recipe.missingProductsNumber}}
+                    </b-btn>
+                </b-list-group-item>
+            </b-list-group>
+            <br/>
+            <br/>
+        </div>
         </div>
     `,
 });
