@@ -115,12 +115,13 @@ public class CustomerController {
         }
     }
 
-    @RequestMapping(value = "/customer/{customerId}/plan",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/customer/{customerId}/plan/delete",method = RequestMethod.PUT)
     @CrossOrigin
     public String removeRecipeFromDayPlan(@RequestBody String productBody, @PathVariable String customerId,
                                      HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");
         try {
+            System.out.println("deleting " + productBody);
             response.setStatus(HttpServletResponse.SC_OK);
             return new ObjectMapper().writeValueAsString(customerService.deleteRecipeFromDayPlan(productBody));
         } catch (JsonProcessingException e) {

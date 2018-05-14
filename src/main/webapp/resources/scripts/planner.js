@@ -48,11 +48,17 @@ const planner = new Vue({
             }
             this.addComparedRecipes();
         },
-        deletePlannedRecipe() {
-            if (this.plannedRecipe.customerId > -1 && this.plannedRecipe.recipeId > -1) {
-                fetch("http://localhost:8080/customer/" + this.customerId + "/plan", {
-                    body: JSON.stringify(this.plannedRecipe),
-                    method: "DELETE",
+        deletePlannedRecipe(currentRecipe, rowId) {
+            var dayPlan = {};
+            dayPlan.date = new Date().setDate(new Date().getDate() + rowId);
+            dayPlan.customerId = this.customerId;
+            dayPlan.recipeId = currentRecipe.recipe.id;
+            console.log("deleting: ")
+            console.log(dayPlan)
+            console.log(JSON.stringify(dayPlan))
+            fetch("http://localhost:8080/customer/" + this.customerId + "/plan/delete", {
+                    body: JSON.stringify(dayPlan),
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -60,11 +66,37 @@ const planner = new Vue({
                     .then(() => {
                         this.error = "Error during deleting planned recipe."
                     })
-            }
-            else {
-                this.error = "Fill all fields."
-            }
             this.addComparedRecipes();
+        },
+        deletePlannedRecipeFromRow(rowId){
+            if (rowId === 0){
+                this.plannedRecipes0.forEach(this.deletePlannedRecipe, 0);
+                this.plannedRecipes0 = [];
+            }
+            else if (rowId === 1){
+                this.plannedRecipes1.forEach(this.deletePlannedRecipe, 1);
+                this.plannedRecipes1 = [];
+            }
+            else if (rowId === 2){
+                this.plannedRecipes2.forEach(this.deletePlannedRecipe, 2);
+                this.plannedRecipes2 = [];
+            }
+            else if (rowId === 3){
+                this.plannedRecipes3.forEach(this.deletePlannedRecipe, 3);
+                this.plannedRecipes3 = [];
+            }
+            else if (rowId === 4){
+                this.plannedRecipes4.forEach(this.deletePlannedRecipe, 4);
+                this.plannedRecipes4 = [];
+            }
+            else if (rowId === 5){
+                this.plannedRecipes5.forEach(this.deletePlannedRecipe, 5);
+                this.plannedRecipes5 = [];
+            }
+            else if (rowId === 6){
+                this.plannedRecipes6.forEach(this.deletePlannedRecipe, 6);
+                this.plannedRecipes6 = [];
+            }
         }
     },
     beforeMount(){
@@ -93,9 +125,10 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row justify-content-md-center">
+                                <b-button class="btn btn-info" v-on:click="deletePlannedRecipeFromRow(0)"> Clear </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.zero = false"> &times; </b-button>
                             </div>
-                            <draggable v-bind:id="0" v-model="plannedRecipes0" class="dragArea" :options="{group:'people'}"
+                            <draggable v-bind:id="0" v-model="plannedRecipes0" class="dragArea" :options="{group:{name: 'people', pull:false}}"
                                     @add="chooseDate">
                                 <div v-for="element in plannedRecipes0">{{element.recipe.name}}</div>
                             </draggable>
@@ -105,9 +138,10 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row">
+                                <b-button class="btn btn-info" v-on:click="deletePlannedRecipeFromRow(1)"> Clear </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.one = false"> &times; </b-button>
                             </div>                
-                            <draggable v-bind:id="1" v-model="plannedRecipes1" class="dragArea" :options="{group:'people'}"
+                            <draggable v-bind:id="1" v-model="plannedRecipes1" class="dragArea" :options="{group:{name: 'people', pull:false}}"
                                     @add="chooseDate">
                                 <div v-for="element in plannedRecipes1">{{element.recipe.name}}</div>
                             </draggable>
@@ -119,7 +153,7 @@ const planner = new Vue({
                             <div class="row">
                                 <b-button class="close close-button" v-on:click="renderedCards.two = false"> &times; </b-button>
                             </div>
-                            <draggable v-bind:id="2" v-model="plannedRecipes2" class="dragArea" :options="{group:'people'}"
+                            <draggable v-bind:id="2" v-model="plannedRecipes2" class="dragArea" :options="{group:{name: 'people', pull:false}}"
                                     @add="chooseDate">
                                 <div v-for="element in plannedRecipes2">{{element.recipe.name}}</div>
                             </draggable>
@@ -131,7 +165,7 @@ const planner = new Vue({
                             <div class="row">
                                 <b-button class="close close-button" v-on:click="renderedCards.three = false"> &times; </b-button>
                             </div>
-                            <draggable v-bind:id="3" v-model="plannedRecipes3" class="dragArea" :options="{group:'people'}"
+                            <draggable v-bind:id="3" v-model="plannedRecipes3" class="dragArea" :options="{group:{name: 'people', pull:false}}"
                                     @add="chooseDate">
                                 <div v-for="element in plannedRecipes3">{{element.recipe.name}}</div>
                             </draggable>
@@ -143,7 +177,7 @@ const planner = new Vue({
                             <div class="row">
                                 <b-button class="close close-button" v-on:click="renderedCards.four = false"> &times; </b-button>
                             </div>
-                            <draggable v-bind:id="4" v-model="plannedRecipes4" class="dragArea" :options="{group:'people'}"
+                            <draggable v-bind:id="4" v-model="plannedRecipes4" class="dragArea" :options="{group:{name: 'people', pull:false}}"
                                     @add="chooseDate">
                                 <div v-for="element in plannedRecipes4">{{element.recipe.name}}</div>
                             </draggable>
@@ -155,7 +189,7 @@ const planner = new Vue({
                             <div class="row">
                                 <b-button class="close close-button" v-on:click="renderedCards.five = false"> &times; </b-button>
                             </div>
-                            <draggable v-bind:id="5" v-model="plannedRecipes5" class="dragArea" :options="{group:'people'}"
+                            <draggable v-bind:id="5" v-model="plannedRecipes5" class="dragArea" :options="{group:{name: 'people', pull:false}}"
                                     @add="chooseDate">
                                 <div v-for="element in plannedRecipes5">{{element.recipe.name}}</div>
                             </draggable>
@@ -167,7 +201,7 @@ const planner = new Vue({
                             <div class="row">
                                 <b-button class="close close-button" v-on:click="renderedCards.six = false"> &times; </b-button>
                             </div>
-                            <draggable v-bind:id="6" v-model="plannedRecipes6" class="dragArea" :options="{group:'people'}"
+                            <draggable v-bind:id="6" v-model="plannedRecipes6" class="dragArea" :options="{group:{name: 'people', pull:false}}"
                                     @add="chooseDate">
                                 <div v-for="element in plannedRecipes6">{{element.recipe.name}}</div>
                             </draggable>
