@@ -90,12 +90,16 @@ const recipes = new Vue({
                 <b-list-group-item class="d-flex justify-content-between align-items-center" 
                     v-for="recipe in comparedRecipes">
                     {{recipe.recipe.name}}
-                    <!--<li class="list-group-item" v-for="product in recipe.missingProducts">-->
-                    <!--{{product.product.name}}-->
-                    <!--</li>-->
-                    <b-btn variant="danger" data-toggle="tooltip" data-placement="right" title="missing products">
-                        {{recipe.missingProductsNumber}}
-                    </b-btn>
+                    <div>
+                        <b-btn variant="danger" v-b-toggle="recipe.recipe.name" data-toggle="tooltip" 
+                            data-placement="right" title="missing products">{{recipe.missingProductsNumber}}
+                        </b-btn>
+                        <b-collapse v-bind:id="recipe.recipe.name">
+                            <li class="list-group-item" v-for="product in recipe.missingProducts">
+                                {{product.product.name}}: {{product.amount}} {{product.product.baseUnit}}
+                            </li>
+                        </b-collapse>
+                    </div>
                 </b-list-group-item>
             </b-list-group>
             <br/>

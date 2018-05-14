@@ -47,7 +47,9 @@ body {
 
 #showMyRecipesButton {
     margin: 15px;
-
 }
 
+.collapse.show {
+    margin-top: 15px;
+}
 

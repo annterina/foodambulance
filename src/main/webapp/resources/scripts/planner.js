@@ -47,6 +47,24 @@ const planner = new Vue({
                 this.error = "Fill all fields."
             }
             this.addComparedRecipes();
+        },
+        deletePlannedRecipe() {
+            if (this.plannedRecipe.customerId > -1 && this.plannedRecipe.recipeId > -1) {
+                fetch("http://localhost:8080/customer/" + this.customerId + "/plan", {
+                    body: JSON.stringify(this.plannedRecipe),
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then(() => {
+                        this.error = "Error during deleting planned recipe."
+                    })
+            }
+            else {
+                this.error = "Fill all fields."
+            }
+            this.addComparedRecipes();
         }
     },
     beforeMount(){
