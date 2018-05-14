@@ -19,8 +19,10 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
         <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-outline-success my-2 my-sm-0" href="register.jsp">Sign in</a>
+            <a class="btn btn-success my-2 my-sm-0" href="register.jsp">Sign up</a>
         </form>
     </div>
 </nav>

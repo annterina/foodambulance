@@ -36,6 +36,7 @@ const register = new Vue({
         }
     },
     beforeMount(){
+        Cookies.set("customerId", -1);
     },
     mounted() {
     },
