@@ -2,6 +2,7 @@ package foodambulance.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import foodambulance.dao.CustomerDAO;
 import foodambulance.dao.ProductDAO;
 import foodambulance.dao.RecipeDAO;
 import foodambulance.deserialization.RecipeD;
@@ -29,11 +30,13 @@ public class RecipeServiceImpl implements RecipeService {
 
     private RecipeDAO recipeDAO;
     private ProductDAO productDAO;
+    private CustomerDAO customerDAO;
 
     @Autowired
-    public RecipeServiceImpl(RecipeDAO recipeDAO, ProductDAO productDAO) {
+    public RecipeServiceImpl(RecipeDAO recipeDAO, ProductDAO productDAO, CustomerDAO customerDAO) {
         this.recipeDAO = recipeDAO;
         this.productDAO = productDAO;
+        this.customerDAO = customerDAO;
     }
 
     @Override
@@ -48,6 +51,10 @@ public class RecipeServiceImpl implements RecipeService {
                             strippedRecipe.getRecipeIngredientsAmount()::get));
             Recipe recipe = new Recipe();
             recipe.setName(strippedRecipe.getName());
+            recipe.setCustomer(new HashSet<>());
+            if (strippedRecipe.getCustomerId()!=null) {
+                recipe.addCustomer(customerDAO.getCustomerOfId(strippedRecipe.getCustomerId()));
+            }
             List<Long> recipeIngredientsIds = strippedRecipe.getRecipeIngredientsIds();
             Set<RecipeIngredient> recipeIngredients = new HashSet<>();
             recipeIngredientsIds.forEach(ingredientId -> {
