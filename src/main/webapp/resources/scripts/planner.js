@@ -97,14 +97,13 @@ const planner = new Vue({
                 this.plannedRecipes6.forEach(this.deletePlannedRecipe, 6);
                 this.plannedRecipes6 = [];
             }
+            this.addComparedRecipes();
         }
     },
     beforeMount(){
         this.customerId = Cookies.get("customerId");
         this.plannedRecipe.customerId = this.customerId;
         this.addComparedRecipes();
-    },
-    mounted() {
     },
     template: `
     <div class="container">
@@ -125,7 +124,9 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row justify-content-md-center">
-                                <b-button class="btn btn-info" v-on:click="deletePlannedRecipeFromRow(0)"> Clear </b-button>
+                                <b-button id="clearBtn" class="close close-button" v-on:click="deletePlannedRecipeFromRow(0)">
+                                    clear 
+                                 </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.zero = false"> &times; </b-button>
                             </div>
                             <draggable v-bind:id="0" v-model="plannedRecipes0" class="dragArea" :options="{group:{name: 'people', pull:false}}"
@@ -138,7 +139,9 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row">
-                                <b-button class="btn btn-info" v-on:click="deletePlannedRecipeFromRow(1)"> Clear </b-button>
+                                <b-button id="clearBtn" class="close close-button" v-on:click="deletePlannedRecipeFromRow(1)">
+                                    clear 
+                                 </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.one = false"> &times; </b-button>
                             </div>                
                             <draggable v-bind:id="1" v-model="plannedRecipes1" class="dragArea" :options="{group:{name: 'people', pull:false}}"
@@ -151,6 +154,9 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row">
+                                <b-button id="clearBtn" class="close close-button" v-on:click="deletePlannedRecipeFromRow(2)">
+                                    clear 
+                                 </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.two = false"> &times; </b-button>
                             </div>
                             <draggable v-bind:id="2" v-model="plannedRecipes2" class="dragArea" :options="{group:{name: 'people', pull:false}}"
@@ -163,6 +169,9 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row">
+                                <b-button id="clearBtn" class="close close-button" v-on:click="deletePlannedRecipeFromRow(3)">
+                                    clear 
+                                 </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.three = false"> &times; </b-button>
                             </div>
                             <draggable v-bind:id="3" v-model="plannedRecipes3" class="dragArea" :options="{group:{name: 'people', pull:false}}"
@@ -175,6 +184,9 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row">
+                                <b-button id="clearBtn" class="close close-button" v-on:click="deletePlannedRecipeFromRow(4)">
+                                    clear 
+                                 </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.four = false"> &times; </b-button>
                             </div>
                             <draggable v-bind:id="4" v-model="plannedRecipes4" class="dragArea" :options="{group:{name: 'people', pull:false}}"
@@ -187,6 +199,9 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row">
+                                <b-button id="clearBtn" class="close close-button" v-on:click="deletePlannedRecipeFromRow(5)">
+                                    clear 
+                                </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.five = false"> &times; </b-button>
                             </div>
                             <draggable v-bind:id="5" v-model="plannedRecipes5" class="dragArea" :options="{group:{name: 'people', pull:false}}"
@@ -199,6 +214,9 @@ const planner = new Vue({
                                 style="max-width: 25rem;" class="mb-2" border-variant="info"  
                                 header-text-variant="white" header-bg-variant="info">
                             <div class="row">
+                                <b-button id="clearBtn" class="close close-button" v-on:click="deletePlannedRecipeFromRow(6)">
+                                    clear 
+                                </b-button>
                                 <b-button class="close close-button" v-on:click="renderedCards.six = false"> &times; </b-button>
                             </div>
                             <draggable v-bind:id="6" v-model="plannedRecipes6" class="dragArea" :options="{group:{name: 'people', pull:false}}"

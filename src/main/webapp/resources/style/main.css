@@ -68,3 +68,9 @@ body {
     margin-top: 15px;
 }
 
+#clearBtn {
+    margin-right: 30px;
+    margin-top: -1px;
+    padding: 5px;
+    font-size: medium;
+}
