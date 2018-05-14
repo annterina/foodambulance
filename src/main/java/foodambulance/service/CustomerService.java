@@ -1,6 +1,7 @@
 package foodambulance.service;
 
 import foodambulance.deserialization.RecipeD;
+import foodambulance.deserialization.Grocery;
 import foodambulance.deserialization.StrippedDayPlan;
 import foodambulance.model.CustomerProduct;
 import foodambulance.model.Recipe;
@@ -28,4 +29,6 @@ public interface CustomerService {
     boolean addRecipeToDayPlan(String strippedDayPlanBody);
 
     boolean deleteRecipeFromDayPlan(String strippedDayPlanBody);
+
+    List<Grocery> getGroceryListOfCustomerOfId(Long id);
 }

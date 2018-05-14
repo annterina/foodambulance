@@ -35,7 +35,7 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <a class="btn btn-outline-success my-2 my-sm-0" href="register.jsp">Sign in</a>
+        <a class="btn btn-success my-2 my-sm-0" href="register.jsp">Sign out</a>
       </form>
     </div>
   </nav>

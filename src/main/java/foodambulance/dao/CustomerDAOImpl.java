@@ -14,6 +14,7 @@ import org.hibernate.query.Query;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -78,6 +79,12 @@ public class CustomerDAOImpl implements CustomerDAO {
             if (customerProduct.getProduct().getId().equals(productId)) return customerProduct;
         }
         return null;
+    }
+
+    @Override
+    public Set<CustomerProduct> getCustomerProducts(Long customerId) {
+        Customer customer = getCustomerOfId(customerId);
+        return customer.getCustomerProducts();
     }
 
     @Override

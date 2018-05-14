@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import foodambulance.dao.CustomerDAO;
 import foodambulance.dao.ProductDAO;
 import foodambulance.dao.RecipeDAO;
+import foodambulance.deserialization.Grocery;
 import foodambulance.deserialization.RecipeD;
 import foodambulance.deserialization.StrippedCustomerProduct;
 import foodambulance.deserialization.StrippedDayPlan;
@@ -214,5 +215,24 @@ public class CustomerServiceImpl implements CustomerService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Grocery> getGroceryListOfCustomerOfId(Long id) {
+        return customerDAO.getCustomerProducts(id)
+                .stream()
+                .filter(customerProduct -> customerProduct.getAmount()<0)
+                .map(customerProduct ->
+                    new Grocery()
+                            .withName(customerProduct.getProduct().getName())
+                            .withAmount(calculateWantedAmount(customerProduct))
+                            .withBaseUnit(customerProduct.getProduct().getBaseUnit()))
+                .collect(Collectors.toList());
+    }
+
+    private float calculateWantedAmount(CustomerProduct customerProduct) {
+        return (float)Math.ceil(-customerProduct.getAmount()/customerProduct.getProduct().getBaseAmount().intValue())
+                *customerProduct.getProduct().getBaseAmount().intValue();
     }
 }
