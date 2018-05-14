@@ -13,6 +13,9 @@ const grocery = new Vue({
                     this.groceryList = data;
                 })
         },
+        printPage(){
+            window.print()
+        }
     },
     beforeMount(){
         this.customerId = Cookies.get("customerId");
@@ -29,6 +32,7 @@ const grocery = new Vue({
             {{grocery.name}} : {{grocery.amount}} {{grocery.baseUnit}}
         </li>
         </ul>
+        <button v-on:click="printPage()" class="btn btn-info">Print</button>
         </div>
     `,
 });
