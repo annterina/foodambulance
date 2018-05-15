@@ -53,9 +53,6 @@ public class RecipeServiceImpl implements RecipeService {
             recipe.setName(strippedRecipe.getName());
             recipe.setDescription(strippedRecipe.getDescription());
             recipe.setCustomer(new HashSet<>());
-            if (strippedRecipe.getCustomerId()!=null) {
-                recipe.addCustomer(customerDAO.getCustomerOfId(strippedRecipe.getCustomerId()));
-            }
             List<Long> recipeIngredientsIds = strippedRecipe.getRecipeIngredientsIds();
             Set<RecipeIngredient> recipeIngredients = new HashSet<>();
             recipeIngredientsIds.forEach(ingredientId -> {

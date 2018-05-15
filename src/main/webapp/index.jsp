@@ -33,7 +33,7 @@
           <a class="nav-link" href="resources/planner.html">Planner</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="resources/admin.html">Admin Console</a>
+            <a class="nav-link" href="resources/grocery.html">Grocery list</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">

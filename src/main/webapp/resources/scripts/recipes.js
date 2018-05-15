@@ -50,7 +50,15 @@ const recipes = new Vue({
     template: `
         <div>
         <div class="row">
-            <b-card-group columns class="mb-3 col-8">
+            <b-card-group columns class="col-7">
+                 <b-card bg-variant="danger" text-variant="white"
+                        header="Add new recipe!" class="text-center" footer-tag="footer">
+                    <em slot="footer">
+                        <a href="#newRecipe" id="addRecipeButton" class="btn btn-danger btn-lg"> 
+                            +
+                        </a>
+                    </em>
+                </b-card>
                 <b-card v-for="recipe in recipeList" bg-variant="info" text-variant="white"
                         v-bind:header="recipe.name" class="text-center" footer-tag="footer">
                     <p class="card-text"> 

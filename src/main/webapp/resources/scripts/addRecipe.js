@@ -7,11 +7,11 @@ const addRecipe = new Vue({
         recipeDescription : ""
     },
     methods: {
-        addRecipe(){
+        addRecipe() {
             if(this.recipeName !== ""){
                 var recipe = {};
                 recipe.name = this.recipeName;
-                recipe.description = this.recipeDescription;
+                recipe.description = "description";
                 console.log(Cookies.get("customerId"));
                 if (Cookies.get("customerId")!=="-1"){
                     console.log("Setting customer id");
@@ -36,6 +36,16 @@ const addRecipe = new Vue({
                     .then(() => {
                     })
             }
+            setTimeout(this.reload, true, 200);
+        },
+        isNumber() {
+            evt = window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                evt.preventDefault();
+            } else {
+                return true;
+            }
         }
     },
     mounted() {
@@ -52,24 +62,26 @@ const addRecipe = new Vue({
             })
     },
     template: `
-    <div>
-            <div class="container">
-            <br>
-            <h4>Adding new recipe</h4>
-                <div class="row" >
-                     <div class="span6 offset3" >
-                        Name :<input v-model = "recipeName"/>
-                        <h5>Choose products:</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item" v-for="(product, i) in products">
-                                  {{product.name}} : <input v-model = "recipeIngredients[i].amount"/> {{product.baseUnit}}
-                            </li>
-                        </ul>
-                        Description : <textarea v-model = "recipeDescription"></textarea>
-                        <button v-on:click="addRecipe()" class="btn btn-info"> Add recipe</button>
-                    </div>
-                 </div>
-            </div>
+    <div id="newRecipe" class="text-center">
+        <h4>New recipe</h4>
+        <div class="row col-6 offset-3 text-center" >
+            <b-form-input type="text" v-model="recipeName" required placeholder="Recipe name">
+            </b-form-input>
+
+            <b-card-group columns class="col-10 offset-1">
+                <b-card v-for="(product, i) in products" bg-variant="info" text-variant="white"
+                        v-bind:header="product.name" class="text-center">
+                    <p class="card-text">
+                        <b-form-input class="form-control input-sm" type="text" v-model="recipeIngredients[i].amount"
+                            placeholder="Enter amount" v-on:keypress="isNumber()">
+                        </b-form-input>
+                        {{product.baseUnit}}
+                    </p> 
+                </b-card>
+                <button v-on:click="addRecipe()" class="btn btn-info btn-lg">Add recipe</button>
+            </b-card-group>
+
+        </div>
     </div>
     `,
 });

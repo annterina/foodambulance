@@ -49,7 +49,6 @@ const app = new Vue({
         },
         roundAmount(product) {
             product.amount = Number(product.amount.toFixed(1));
-            console.log(product.amount);
         }
     },
     mounted() {
