@@ -169,10 +169,17 @@ public class CustomerServiceImpl implements CustomerService {
                 System.out.println("Day plan not found");
             }
             dayPlan.getRecipes().add(recipe);
-            recipe.getIngredients().forEach(ingredient ->
-                customerDAO.changeCustomerProductAmount(
-                        customerDAO.getCustomerProduct(
-                                customer.getId(), ingredient.getProduct().getId()), -ingredient.getAmount())
+            recipe.getIngredients().forEach(ingredient ->{
+                CustomerProduct customerProduct = customerDAO.getCustomerProduct(customer.getId(), ingredient.getProduct().getId());
+                if (customerProduct == null){
+                    customerProduct = new CustomerProduct();
+                    customerProduct.setAmount(0f);
+                    customerProduct.setNewestBuyDate(LocalDateTime.now());
+                    customerProduct.setProduct(ingredient.getProduct());
+                    customerProduct.setCustomer(customer);
+                    customerDAO.saveCustomerProduct(customerProduct);
+                }
+                customerDAO.changeCustomerProductAmount(customerProduct, -ingredient.getAmount());}
             );
             System.out.println("Saving...");
             customerDAO.saveDayPlan(dayPlan);
