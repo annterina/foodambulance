@@ -50,7 +50,7 @@ const recipes = new Vue({
     template: `
         <div>
         <div class="row">
-            <b-card-group deck class="mb-3 col-8">
+            <b-card-group columns class="mb-3 col-8">
                 <b-card v-for="recipe in recipeList" bg-variant="info" text-variant="white"
                         v-bind:header="recipe.name" class="text-center" footer-tag="footer">
                     <p class="card-text"> 

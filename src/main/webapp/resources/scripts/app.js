@@ -12,7 +12,7 @@ const app = new Vue({
                 .then((data) => {
                     this.myProducts = data;
                 })
-            console.log("siema");
+            this.myProducts.forEach(this.roundAmount);
         },
         showAvailableProducts() {
             fetch("http://localhost:8080/products")
@@ -27,8 +27,6 @@ const app = new Vue({
             var customerProduct = {productId : null, amount : null};
             customerProduct.productId = product.id;
             customerProduct.amount = product.amount * product.baseAmount;
-            console.log(JSON.stringify(customerProduct));
-            console.log("hi");
             fetch("http://localhost:8080/customer/"+this.customerId + "/products/add", {
                 body: JSON.stringify(customerProduct),
                 method: "POST",
@@ -37,7 +35,7 @@ const app = new Vue({
                 },
             })
                 .then(() => {
-                })
+                });
             setTimeout(this.showMyProducts, 100);
         },
         isNumber() {
@@ -48,6 +46,10 @@ const app = new Vue({
             } else {
                 return true;
             }
+        },
+        roundAmount(product) {
+            product.amount = Number(product.amount.toFixed(1));
+            console.log(product.amount);
         }
     },
     mounted() {
@@ -81,7 +83,7 @@ const app = new Vue({
                 <ul class="list-group text-center">
                     <li class="list-group-item" v-for="product in myProducts">
                       {{product.product.name}}
-                      <b-badge variant="info" pill>{{product.amount}} {{product.product.baseUnit}}</b-badge>         
+                      <b-badge variant="info" pill>{{Number(product.amount.toFixed(2))}} {{product.product.baseUnit}}</b-badge>         
                     </li>
                 </ul>
             </div>

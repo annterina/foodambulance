@@ -34,7 +34,7 @@
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url"
 						value="jdbc:postgresql://localhost:5432/foodambulance" />
-		<property name="username" value="kenjik" />
+		<property name="username" value="annterina" />
 		<property name="password" value="postgres" />
 		<!--<property name="url"-->
 		<!--value="jdbc:postgresql://horton.elephantsql.com:5432/mwpwvxvu" />-->
