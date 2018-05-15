@@ -1,35 +1,35 @@
 const app = new Vue({
     el: "#app",
     data: {
-        editFriend: null,
         products: [],
         myProducts: [],
         customerId: -1
     },
     methods: {
-        showMyProducts(id){
+        showMyProducts() {
             fetch("http://localhost:8080/customer/" + this.customerId + "/products")
                 .then(response => response.json())
                 .then((data) => {
                     this.myProducts = data;
                 })
+            console.log("siema");
         },
-        showAvailableProducts(){
+        showAvailableProducts() {
             fetch("http://localhost:8080/products")
                 .then(response => response.json())
                 .then((data) => {
                     this.products = data;
                 })
         },
-        addProduct(product){
+        addProduct(product) {
             console.log(product.id);
             console.log(product.amount);
             var customerProduct = {productId : null, amount : null};
             customerProduct.productId = product.id;
-            customerProduct.amount = product.amount;
+            customerProduct.amount = product.amount * product.baseAmount;
             console.log(JSON.stringify(customerProduct));
             console.log("hi");
-            fetch("http://localhost:8080/customer/"+this.customerId+"/products/add", {
+            fetch("http://localhost:8080/customer/"+this.customerId + "/products/add", {
                 body: JSON.stringify(customerProduct),
                 method: "POST",
                 headers: {
@@ -38,6 +38,16 @@ const app = new Vue({
             })
                 .then(() => {
                 })
+            setTimeout(function() {this.showMyProducts();}, 500);
+        },
+        isNumber() {
+            evt = window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                evt.preventDefault();
+            } else {
+                return true;
+            }
         }
     },
     mounted() {
@@ -45,31 +55,37 @@ const app = new Vue({
         this.showAvailableProducts()
     },
     template: `
-    <div>
-    <br/>
-        <div class="container">
-            <h4>All products</h4>
-            <div class="list-inline">
-                <div class="list-inline-item col-md-4" v-for="(product, i) in products">
-                    <h5>{{product.name}}</h5>
-                Amount to add: <input v-model = "product.amount"/> {{product.baseAmount}} {{product.baseUnit}}
+     <div>
+        <div class="row">
+            <b-card-group columns class="col-7">
+                <b-card v-for="product in products" bg-variant="info" text-variant="white"
+                        v-bind:header="product.name" class="text-center" footer-tag="footer">
+                    <p class="card-text">
+                        <input class="form-control input-sm" v-model="product.amount" placeholder="Enter amount"
+                            v-on:keypress="isNumber()">
+                        </input>
+                        {{product.baseAmount}} {{product.baseUnit}}
+                    </p> 
+                    <em slot="footer">
+                        <button id="addProductButton" v-on:click="addProduct(product)" class="btn btn-info"> 
+                            Add to my fridge
+                        </button>
+                    </em>
+                </b-card>
+            </b-card-group>
+            
+            <div class="col-4 text-center">
+                <button id="showMyProductsButton" ref="showMyProducts" v-on:click="showMyProducts()" class="btn btn-info btn-lg"> My fridge </button> 
                 <br/>
-                <button v-on:click="addProduct(product)" class="btn btn-info ">Add to fridge</button>
-                </div>
+                <br/>
+                <ul class="list-group text-center">
+                    <li class="list-group-item" v-for="product in myProducts">
+                      {{product.product.name}}
+                      <b-badge variant="info" pill>{{product.amount}} {{product.product.baseUnit}}</b-badge>         
+                    </li>
+                </ul>
             </div>
         </div>
-        <br>
-        <div class="container">
-            <h4>My products</h4>
-            <div class="list-inline">
-                <div class="list-inline-item col-md-4" v-for="product, i in myProducts">
-                    <h5>{{product.product.name}}</h5> Amount: {{product.amount}} {{product.product.baseUnit}}
-                </div>
-            </div>
-            <br>
-            <button v-on:click="showMyProducts(1)" class="btn btn-info"> Show My Products</button>
-            <br/>
         </div>
-    </div>
     `,
 });

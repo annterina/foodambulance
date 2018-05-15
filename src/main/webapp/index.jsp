@@ -10,6 +10,8 @@
   <head>
     <title>Food ambulance</title>
     <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+    <link rel="stylesheet" href="resources/style/main.css">
   </head>
 
   <body>
@@ -47,6 +49,7 @@
   <script src="resources/js/jquery-3.3.1.min.js"></script>
   <script src="resources/js/bootstrap.min.js"></script>
   <script src="resources/scripts/vue.js"></script>
+  <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
   <script src="resources/js/js-cookie.js"></script>
   <script src="resources/scripts/app.js"></script>
   </body>
