@@ -13,12 +13,12 @@ public class RecipePrioritizer {
 
     public RecipePrioritizer(Set<CustomerProduct> customerProducts, Set<Recipe> customerRecipes) {
         this.customerProducts = new HashMap<>();
-        customerProducts.forEach(this::createCustomerProductsMap);
+        customerProducts.forEach(this::addCustomerProductToMap);
         this.comparedRecipes = new HashSet<>();
         customerRecipes.forEach(this::addComparedRecipeToSet);
     }
 
-    private void createCustomerProductsMap(CustomerProduct customerProduct) {
+    private void addCustomerProductToMap(CustomerProduct customerProduct) {
         customerProducts.put(customerProduct.getProduct().getId(), customerProduct);
     }
 
@@ -26,11 +26,11 @@ public class RecipePrioritizer {
         comparedRecipes.add(new ComparedRecipe(recipe));
     }
 
-    public PriorityQueue<ComparedRecipe> sortRecipes() {
+    public List<ComparedRecipe> sortRecipes() {
         comparedRecipes.forEach(comparedRecipe -> setMissingProductsAndOldestDate(comparedRecipe, customerProducts));
-        PriorityQueue<ComparedRecipe> priorityQueue = new PriorityQueue<>(new RecipeComparator());
-        priorityQueue.addAll(comparedRecipes);
-        return priorityQueue;
+        List<ComparedRecipe> sortedRecipes = new ArrayList<>(comparedRecipes);
+        Collections.sort(sortedRecipes);
+        return sortedRecipes;
     }
 
     private void setMissingProductsAndOldestDate(ComparedRecipe comparedRecipe, Map<Long, CustomerProduct> products) {
