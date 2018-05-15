@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ComparedRecipe {
+public class ComparedRecipe implements Comparable<ComparedRecipe> {
 
     private Recipe recipe;
     private Integer missingProductsNumber;
@@ -52,5 +52,15 @@ public class ComparedRecipe {
 
     public void setMissingProducts(Set<RecipeIngredient> missingProducts) {
         this.missingProducts = missingProducts;
+    }
+
+    @Override
+    public int compareTo(ComparedRecipe comparedRecipe) {
+            if (this.getMissingProductsNumber() > comparedRecipe.getMissingProductsNumber()) return 1;
+            else if (this.getMissingProductsNumber() < comparedRecipe.getMissingProductsNumber()) return -1;
+            else {
+                if (comparedRecipe.getNewestBuyDate().isBefore(this.getNewestBuyDate())) return 1;
+                else return -1;
+            }
     }
 }
