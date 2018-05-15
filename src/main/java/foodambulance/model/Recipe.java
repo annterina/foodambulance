@@ -36,6 +36,9 @@ public class Recipe {
     @Column(name = "PUBLIC")
     private boolean isPublic = true;
 
+    @Column(name = "DESCRIPTION", length = 1000)
+    private String description;
+
     @OneToMany(mappedBy = "recipe")
     @JsonBackReference(value = "recipe-recipeIngredient")
     private Set<RecipeIngredient> ingredients = new HashSet<>();
@@ -92,5 +95,17 @@ public class Recipe {
 
     public void setDayPlans(Set<DayPlan> dayPlans) {
         this.dayPlans = dayPlans;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

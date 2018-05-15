@@ -3,13 +3,15 @@ const addRecipe = new Vue({
     data: {
         products : null,
         recipeIngredients : [],
-        recipeName : ""
+        recipeName : "",
+        recipeDescription : ""
     },
     methods: {
         addRecipe(){
             if(this.recipeName !== ""){
                 var recipe = {};
                 recipe.name = this.recipeName;
+                recipe.description = this.recipeDescription;
                 console.log(Cookies.get("customerId"));
                 if (Cookies.get("customerId")!=="-1"){
                     console.log("Setting customer id");
@@ -54,8 +56,8 @@ const addRecipe = new Vue({
             <div class="container">
             <br>
             <h4>Adding new recipe</h4>
-                <div class="row">
-                     <div class="span6 offset3">
+                <div class="row" >
+                     <div class="span6 offset3" >
                         Name :<input v-model = "recipeName"/>
                         <h5>Choose products:</h5>
                         <ul class="list-group">
@@ -63,6 +65,7 @@ const addRecipe = new Vue({
                                   {{product.name}} : <input v-model = "recipeIngredients[i].amount"/> {{product.baseUnit}}
                             </li>
                         </ul>
+                        Description : <textarea v-model = "recipeDescription"></textarea>
                         <button v-on:click="addRecipe()" class="btn btn-info"> Add recipe</button>
                     </div>
                  </div>

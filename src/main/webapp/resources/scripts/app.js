@@ -38,7 +38,7 @@ const app = new Vue({
             })
                 .then(() => {
                 })
-            setTimeout(function() {this.showMyProducts();}, 500);
+            setTimeout(this.showMyProducts, 100);
         },
         isNumber() {
             evt = window.event;

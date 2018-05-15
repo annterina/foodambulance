@@ -8,6 +8,7 @@ public class StrippedRecipe {
     private Long customerId;
     private List<Long> recipeIngredientsIds;
     private List<Float> recipeIngredientsAmount;
+    private String description;
 
     public String getName() {
         return name;
@@ -39,5 +40,13 @@ public class StrippedRecipe {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

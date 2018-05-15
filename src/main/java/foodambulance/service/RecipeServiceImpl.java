@@ -51,6 +51,7 @@ public class RecipeServiceImpl implements RecipeService {
                             strippedRecipe.getRecipeIngredientsAmount()::get));
             Recipe recipe = new Recipe();
             recipe.setName(strippedRecipe.getName());
+            recipe.setDescription(strippedRecipe.getDescription());
             recipe.setCustomer(new HashSet<>());
             if (strippedRecipe.getCustomerId()!=null) {
                 recipe.addCustomer(customerDAO.getCustomerOfId(strippedRecipe.getCustomerId()));
