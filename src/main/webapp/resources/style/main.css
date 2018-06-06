@@ -3,6 +3,11 @@ body {
     background-size: 150% 100%;
 }
 
+body.register {
+    background-image: url("../images/background_register.png");
+    background-size: 100% 110%;
+}
+
 @media print {
     .grocery {
         background-color: white;

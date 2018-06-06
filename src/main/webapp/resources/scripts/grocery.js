@@ -24,15 +24,22 @@ const grocery = new Vue({
         this.showGroceryList();
     },
     template: `
-        <div>
-        <br>
-        <h4>Your groceries</h4>
-        <ul class="list-group">
-        <li class="list-group-item" v-for="grocery in groceryList">
-            {{grocery.name}} : {{grocery.amount}} {{grocery.baseUnit}}
-        </li>
-        </ul>
-        <button v-on:click="printPage()" class="btn btn-info">Print</button>
+<div>
+        <div class="text-center">
+            <br>
+            <h4>Your groceries</h4>
+            <br/>
+            <ul class="list-group col-6 offset-3">
+                <li class="list-group-item" v-for="grocery in groceryList">
+                    {{grocery.name}} : {{grocery.amount}} {{grocery.baseUnit}}
+                </li>
+            </ul>
         </div>
+        <br/>
+        <br/>
+        <div class="text-center">
+            <button v-on:click="printPage()" class="btn btn-info btn-lg">Print</button>
+        </div>
+</div>
     `,
 });

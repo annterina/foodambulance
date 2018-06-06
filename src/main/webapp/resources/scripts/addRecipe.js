@@ -41,7 +41,7 @@ const addRecipe = new Vue({
         isNumber() {
             evt = window.event;
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46 && charCode !== 45) {
                 evt.preventDefault();
             } else {
                 return true;
@@ -72,9 +72,9 @@ const addRecipe = new Vue({
                 <b-card v-for="(product, i) in products" bg-variant="info" text-variant="white"
                         v-bind:header="product.name" class="text-center">
                     <p class="card-text">
-                        <b-form-input class="form-control input-sm" type="text" v-model="recipeIngredients[i].amount"
+                        <input class="form-control input-sm" type="text" v-model="recipeIngredients[i].amount"
                             placeholder="Enter amount" v-on:keypress="isNumber()">
-                        </b-form-input>
+                        </input>
                         {{product.baseUnit}}
                     </p> 
                 </b-card>

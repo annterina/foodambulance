@@ -42,30 +42,25 @@ const login = new Vue({
     },
     template: `
         <div class="registerArea">
-            <h2>Please log in.</h2>
             <div class="col-6 offset-3">
                 <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                <b-form-group id="emailGroup"
-                            label="Email address:"
-                            label-for="email"
+                <b-form-group id="emailGroup">
                     <b-form-input id="email"
                               type="email"
                               v-model="form.mail"
                               required
-                              placeholder="Enter email">
+                              placeholder="Login email">
                     </b-form-input>
                 </b-form-group>
-                <b-form-group id="passwordGroup"
-                            label="Password:"
-                            label-for="password">
+                <b-form-group id="passwordGroup">
                     <b-form-input id="password"
                               type="password"
                               v-model="form.passwordHash"
                               required
-                              placeholder="Enter password">
+                              placeholder="Login password">
                     </b-form-input>
                 </b-form-group>
-                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button type="submit" variant="info">Submit</b-button>
                 <b-button type="reset" variant="danger">Reset</b-button>
                 </b-form>
             </div>

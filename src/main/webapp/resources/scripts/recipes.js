@@ -39,6 +39,7 @@ const recipes = new Vue({
             })
                 .then(() => {
                 })
+            setTimeout(this.showMyRecipes, 200);
         }
     },
     beforeMount(){

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="resources/style/main.css">
 </head>
 
-<body>
+<body class="register">
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
     <a class="navbar-brand" href="#" style="color: white">Food Ambulance</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

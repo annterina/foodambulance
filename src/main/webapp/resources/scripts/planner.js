@@ -50,7 +50,7 @@ const planner = new Vue({
         },
         deletePlannedRecipe(currentRecipe, rowId) {
             var dayPlan = {};
-            dayPlan.date = new Date().setDate(new Date().getDate() + rowId);
+            dayPlan.date = new Date().setDate(new Date().getDate() + rowId + 1);
             dayPlan.customerId = this.customerId;
             dayPlan.recipeId = currentRecipe.recipe.id;
             console.log("deleting: ")

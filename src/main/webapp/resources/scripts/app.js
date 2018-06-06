@@ -41,7 +41,7 @@ const app = new Vue({
         isNumber() {
             evt = window.event;
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46 && charCode !== 45) {
                 evt.preventDefault();
             } else {
                 return true;
